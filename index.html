@@ -1,0 +1,161 @@
+export default function DivaSkinMobileFirst() {
+  const reviews = [
+    {
+      name: "Camille",
+      text: "Je voulais surtout espacer le rasage. Le site est clair et le produit est agréable à utiliser.",
+    },
+    {
+      name: "Sarah",
+      text: "J’ai aimé le côté simple et premium. Pas besoin de changer toute ma routine.",
+    },
+    {
+      name: "Inès",
+      text: "La promesse est claire et ça donne confiance. J’ai commandé directement.",
+    },
+  ];
+
+  return (
+    <div className="min-h-screen bg-[#faf7f3] text-[#1e1a17]">
+
+      {/* STICKY CTA MOBILE */}
+      <div className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-[#e8ddd3] p-3 md:hidden">
+        <button className="w-full rounded-full bg-[#1e1a17] py-3 text-white font-semibold">
+          Acheter maintenant — 29,90€
+        </button>
+      </div>
+
+      {/* HERO */}
+      <section className="px-5 pt-8 pb-10 max-w-xl mx-auto">
+
+        <div className="text-center">
+          <div className="text-sm uppercase tracking-widest text-[#7a6f66] mb-3">
+            Diva Skin
+          </div>
+
+          <h1 className="text-3xl font-semibold leading-tight">
+            Marre de vous raser tout le temps ?
+          </h1>
+
+          <p className="mt-3 text-[#5f554f]">
+            Diva Skin aide à ralentir la repousse des poils pour une peau plus douce plus longtemps.
+          </p>
+        </div>
+
+        {/* PRODUCT IMAGE */}
+        <div className="mt-6 rounded-3xl overflow-hidden shadow-lg">
+          <img
+            src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=1200&q=80"
+            className="w-full h-[340px] object-cover"
+            alt="Diva Skin"
+          />
+        </div>
+
+        {/* CTA */}
+        <button className="mt-6 w-full rounded-full bg-[#1e1a17] py-3 text-white font-semibold">
+          Essayer Diva Skin
+        </button>
+
+        {/* TRUST */}
+        <div className="flex justify-center gap-4 text-xs text-[#6a5f58] mt-4">
+          <span>Paiement sécurisé</span>
+          <span>Livraison rapide</span>
+          <span>Support client</span>
+        </div>
+      </section>
+
+      {/* BENEFITS QUICK SCAN */}
+      <section className="bg-white py-8 px-5">
+        <div className="max-w-xl mx-auto space-y-4">
+
+          <div className="p-4 rounded-2xl bg-[#faf7f3]">
+            ✔ Ralentit la repousse des poils
+          </div>
+
+          <div className="p-4 rounded-2xl bg-[#faf7f3]">
+            ✔ Peau plus douce
+          </div>
+
+          <div className="p-4 rounded-2xl bg-[#faf7f3]">
+            ✔ Routine simple
+          </div>
+
+        </div>
+      </section>
+
+      {/* SOCIAL PROOF */}
+      <section className="py-10 px-5 max-w-xl mx-auto">
+
+        <h2 className="text-xl font-semibold text-center mb-6">
+          Avis clientes
+        </h2>
+
+        <div className="space-y-4">
+          {reviews.map((r) => (
+            <div key={r.name} className="bg-white p-5 rounded-2xl shadow-sm">
+
+              <div className="text-[#b38b5f] text-sm">★★★★★</div>
+
+              <p className="mt-2 text-sm text-[#5f554f]">"{r.text}"</p>
+
+              <div className="mt-3 text-sm font-semibold">{r.name}</div>
+
+            </div>
+          ))}
+        </div>
+
+      </section>
+
+      {/* OFFER */}
+      <section className="bg-[#1e1a17] text-white py-12 px-5">
+        <div className="max-w-xl mx-auto text-center">
+
+          <h2 className="text-2xl font-semibold">
+            Offre spéciale aujourd’hui
+          </h2>
+
+          <div className="mt-4 text-4xl font-semibold">
+            29,90€
+          </div>
+
+          <p className="text-sm text-white/70 mt-2">
+            Au lieu de 39,90€
+          </p>
+
+          <button className="mt-6 w-full rounded-full bg-white text-[#1e1a17] py-3 font-semibold">
+            Ajouter au panier
+          </button>
+
+        </div>
+      </section>
+
+      {/* FAQ SIMPLE */}
+      <section className="py-12 px-5 max-w-xl mx-auto">
+
+        <h2 className="text-xl font-semibold text-center mb-6">
+          Questions fréquentes
+        </h2>
+
+        <div className="space-y-4 text-sm text-[#5f554f]">
+
+          <div>
+            <strong>Quand utiliser Diva Skin ?</strong>
+            <p>Après le rasage ou l’épilation sur peau propre.</p>
+          </div>
+
+          <div>
+            <strong>À qui s’adresse le produit ?</strong>
+            <p>Aux femmes qui veulent espacer le rasage.</p>
+          </div>
+
+          <div>
+            <strong>Est-ce compliqué ?</strong>
+            <p>Non, il s’ajoute simplement à votre routine.</p>
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+  );
+}
