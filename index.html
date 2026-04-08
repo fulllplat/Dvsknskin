@@ -1,203 +1,151 @@
 <!DOCTYPE html>
-<html lang="fr" class="scroll-smooth">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DivaSkin | Le Sérum Anti-Repousse Définitif - Peau Lisse, sans Effort.</title>
-    <meta name="description" content="Découvrez DivaSkin, le sérum anti-repousse naturel qui agit à la racine pour une peau douce durablement. Commandez votre cure dès maintenant.">
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        diva: {
-                            light: '#E6DCF5', // Violet pâle pour les accents
-                            DEFAULT: '#7B4AEE', // Violet packaging (image_0.png)
-                            dark: '#5C2BB5', // Violet foncé pour le texte/boutons
-                        },
-                        brand: {
-                            DEFAULT: '#FDF1EC', // Teint de peau doux
-                        }
-                    },
-                    animation: {
-                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
-                    },
-                    keyframes: {
-                        fadeInUp: {
-                            '0%': { opacity: 0, transform: translateY(20px) },
-                            '100%': { opacity: 1, transform: translateY(0) },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DivaSkin | L'Excellence Anti-Repousse</title>
     <style>
-        /* Pour les animations douces sur les éléments */
-        .fade-in-up { opacity: 0; animation: fadeInUp 0.8s ease-out forwards; }
-        .delay-100 { animation-delay: 0.1s; }
-        .delay-200 { animation-delay: 0.2s; }
+        :root { --purple: #7B4AEE; --dark-purple: #5C2BB5; --light-bg: #FDF1EC; --text: #1a1a1a; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { bg-color: var(--light-bg); color: var(--text); line-height: 1.5; overflow-x: hidden; }
+        
+        /* Structure Mobile-First */
+        .container { max-width: 450px; margin: 0 auto; background: white; min-height: 100vh; box-shadow: 0 0 20px rgba(0,0,0,0.1); padding-bottom: 120px; }
+        
+        /* Header */
+        header { padding: 15px; text-align: center; border-bottom: 1px solid #eee; sticky top: 0; background: white; z-index: 100; }
+        .logo { font-size: 24px; font-weight: 900; letter-spacing: -1px; }
+        .logo span { color: var(--purple); }
+
+        /* Hero Section */
+        .hero { position: relative; width: 100%; height: 400px; background: #eee; overflow: hidden; }
+        .hero img { width: 100%; height: 100%; object-fit: cover; }
+        .hero-badge { position: absolute; top: 20px; left: 20px; background: red; color: white; padding: 5px 12px; font-size: 12px; font-weight: bold; border-radius: 20px; text-transform: uppercase; z-index: 10; }
+
+        /* Product Info */
+        .content { padding: 25px; }
+        .stars { color: #FFB800; font-size: 18px; margin-bottom: 10px; }
+        .title { font-size: 28px; font-weight: 800; line-height: 1.1; margin-bottom: 15px; }
+        
+        /* Benefits - Direct de tes images */
+        .benefit-item { display: flex; align-items: flex-start; margin-bottom: 20px; }
+        .icon-circle { width: 40px; height: 40px; background: #E6DCF5; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--purple); font-weight: bold; }
+        .benefit-text { margin-left: 15px; }
+        .benefit-text b { display: block; font-size: 16px; margin-bottom: 2px; }
+        .benefit-text p { font-size: 14px; color: #666; }
+
+        /* Packs - Stratégie Marge */
+        .packs-title { text-align: center; font-weight: 800; margin: 30px 0 20px; font-size: 20px; }
+        .pack { border: 2px solid #eee; border-radius: 15px; padding: 20px; margin-bottom: 15px; position: relative; transition: 0.3s; cursor: pointer; }
+        .pack.popular { border-color: var(--purple); background: #f9f6ff; transform: scale(1.02); }
+        .pack-badge { position: absolute; top: -12px; right: 20px; background: var(--purple); color: white; padding: 4px 12px; font-size: 11px; font-weight: bold; border-radius: 10px; }
+        .pack-flex { display: flex; justify-content: space-between; align-items: center; }
+        .pack-info b { font-size: 18px; display: block; }
+        .price { font-size: 22px; font-weight: 900; color: var(--purple); }
+        .old-price { font-size: 14px; text-decoration: line-through; color: #aaa; margin-left: 5px; }
+
+        /* Sticky Button Footer */
+        .footer-cta { position: fixed; bottom: 0; left: 0; right: 0; background: white; padding: 15px; border-top: 1px solid #eee; z-index: 1000; }
+        .btn { display: block; width: 100%; max-width: 420px; margin: 0 auto; background: var(--purple); color: white; text-align: center; padding: 18px; border-radius: 12px; font-size: 18px; font-weight: 800; text-decoration: none; box-shadow: 0 10px 20px rgba(123, 74, 238, 0.3); animation: pulse 2s infinite; }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        /* Payment Icons */
+        .payments { display: flex; justify-content: center; gap: 15px; margin-top: 15px; opacity: 0.6; }
+        .payment-icon { font-size: 12px; font-weight: bold; background: #eee; padding: 4px 8px; border-radius: 4px; }
     </style>
 </head>
-<body class="bg-brand text-gray-800 font-sans antialiased pb-28">
+<body>
 
-    <header class="bg-white shadow-sm sticky top-0 z-40 border-b border-diva-light">
-        <div class="max-w-md mx-auto px-4 py-3 flex justify-between items-center">
-            <h1 class="text-3xl font-extrabold tracking-tight text-gray-900">DIVA<span class="text-diva">SKIN</span></h1>
-            <a href="#packs" class="bg-diva text-white text-xs font-bold px-4 py-2 rounded-full uppercase tracking-wide transform transition active:scale-95">Acheter</a>
-        </div>
+<div class="container">
+    <header>
+        <div class="logo">DIVA<span>SKIN</span></div>
     </header>
 
-    <main class="max-w-md mx-auto bg-white min-h-screen shadow-2xl overflow-hidden">
-        
-        <section class="relative pb-6 fade-in-up">
-            <div class="h-96 w-full flex items-center justify-center relative overflow-hidden bg-diva-light/30">
-                <div class="absolute inset-0 bg-gradient-to-b from-white via-white/40 to-white/10 z-10"></div>
-                <img src="https://via.placeholder.com/800x1200/FFFFFF/7B4AEE?text=image_0.png" alt="Sérum Diva Skin Packaging" class="absolute object-cover w-full h-full" />
-                
-                <div class="absolute bottom-6 left-6 right-6 z-20 text-white p-4 rounded-xl backdrop-blur-sm bg-black/40 border border-diva-light/20">
-                    <span class="bg-red-600 text-white text-xs font-bold px-2 py-1 rounded-full uppercase tracking-wide">Stock Limité (Tiktok)</span>
-                    <h2 class="text-3xl font-bold mt-2 leading-tight text-white">Adieu aux poils. Dès la 1ère application.</h2>
-                </div>
-            </div>
-            
-            <div class="px-6 py-4 flex items-center justify-center gap-2 border-b border-gray-100 bg-gray-50">
-                <div class="flex text-yellow-400 text-lg">★★★★★</div>
-                <span class="text-sm text-gray-500 font-medium">+ de 10,000 femmes conquises</span>
-            </div>
-        </section>
-
-        <section class="px-6 py-8 border-t border-gray-100 bg-white fade-in-up delay-100">
-            <h3 class="font-bold text-gray-900 mb-8 text-xl text-center">Pourquoi DivaSkin change tout ?</h3>
-            
-            <ul class="space-y-6">
-                <li class="flex items-start">
-                    <div class="flex-shrink-0 w-12 h-12 rounded-full bg-diva-light/30 flex items-center justify-center text-diva">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                    </div>
-                    <div class="ml-4">
-                        <span class="text-gray-900 font-bold block">Ralentit la repousse à la racine</span>
-                        <span class="text-gray-600 text-sm">Action ciblée sur le bulbe pileux pour un résultat durable.</span>
-                    </div>
-                </li>
-                <li class="flex items-start">
-                    <div class="flex-shrink-0 w-12 h-12 rounded-full bg-diva-light/30 flex items-center justify-center text-diva">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                    </div>
-                    <div class="ml-4">
-                        <span class="text-gray-900 font-bold block">Apaise et répare les peaux sensibles</span>
-                        <span class="text-gray-600 text-sm">Formule douce, parfaite après l'épilation pour éviter irritations.</span>
-                    </div>
-                </li>
-                <li class="flex items-start">
-                    <div class="flex-shrink-0 w-12 h-12 rounded-full bg-diva-light/30 flex items-center justify-center text-diva">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    </div>
-                    <div class="ml-4">
-                        <span class="text-gray-900 font-bold block">Réduit les pores et unifie le teint</span>
-                        <span class="text-gray-600 text-sm">Aide à affiner le grain de peau pour un fini ultra-lisse.</span>
-                    </div>
-                </li>
-            </ul>
-        </section>
-
-        <section id="packs" class="px-6 py-10 bg-gray-50 fade-in-up delay-200">
-            <h3 class="font-bold text-gray-900 mb-8 text-2xl text-center">Choisissez Votre Cure DivaSkin</h3>
-            
-            <div class="space-y-6">
-                
-                <div class="border border-gray-200 rounded-2xl p-6 bg-white transition hover:shadow-lg">
-                    <h4 class="font-bold text-lg text-gray-800">Pack d'attaque (1 flacon)</h4>
-                    <p class="text-gray-500 text-sm mb-4">Cure d'essai pour une zone.</p>
-                    <div class="flex items-end justify-between mb-4">
-                        <span class="text-gray-900 font-bold text-2xl">29.90 €</span>
-                        <span class="text-gray-400 line-through text-xs">49.90 €</span>
-                    </div>
-                    <a href="#TON_LIEN_CHECKOUT_1_FLACON" class="block w-full bg-diva-light text-diva text-center font-bold py-3 rounded-lg hover:bg-diva-light/80 transform transition active:scale-95">Commander 1 Flacon</a>
-                </div>
-
-                <div class="border-2 border-diva rounded-2xl p-6 relative bg-white shadow-xl shadow-diva/10 transform scale-105">
-                    <span class="absolute -top-3 left-6 bg-diva text-white text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wide">Meilleure Valeur</span>
-                    <h4 class="font-bold text-xl text-diva">Cure de confiance (2 Flacons + 1 OFFERT)</h4>
-                    <p class="text-gray-600 text-sm mb-4">Cure recommandée pour tout le corps.</p>
-                    <div class="flex items-end justify-between mb-4">
-                        <span class="text-diva font-bold text-3xl">49.90 €</span>
-                        <span class="text-diva/60 line-through text-xs">89.70 €</span>
-                    </div>
-                    <a href="#TON_LIEN_CHECKOUT_2_PLUS_1" class="block w-full bg-diva hover:bg-diva-dark text-white text-center font-bold py-4 rounded-xl shadow-lg shadow-diva/30 transform transition active:scale-95 animate-pulse-slow">PROFITER DE L'OFFRE</a>
-                    <p class="text-center text-xs text-diva/70 mt-2">(49.90€ / unité = 16.63€ / flacon)</p>
-                </div>
-
-                <div class="border border-gray-200 rounded-2xl p-6 bg-white transition hover:shadow-lg opacity-80 hover:opacity-100">
-                    <h4 class="font-bold text-lg text-gray-800">Diva Skin Complète (3 Flacons + 2 OFFERTS)</h4>
-                    <p class="text-gray-500 text-sm mb-4">Cure ultime, résultat définitif pour 2 personnes.</p>
-                    <div class="flex items-end justify-between mb-4">
-                        <span class="text-gray-900 font-bold text-2xl">74.90 €</span>
-                        <span class="text-gray-400 line-through text-xs">149.50 €</span>
-                    </div>
-                    <a href="#TON_LIEN_CHECKOUT_3_PLUS_2" class="block w-full bg-gray-100 text-gray-800 text-center font-bold py-3 rounded-lg hover:bg-gray-200 transform transition active:scale-95">Prendre la Cure Diva</a>
-                </div>
-
-            </div>
-        </section>
-
-        <section class="px-6 py-8 bg-white border-t border-gray-100">
-            <h3 class="font-bold text-gray-900 mb-6 text-xl text-center">Paiement Express Sécurisé</h3>
-            <p class="text-center text-sm text-gray-500 mb-6">Transactions sécurisées par cryptage SSL.</p>
-            <div class="flex justify-center gap-3">
-                <button class="w-20 h-10 border border-gray-200 rounded flex items-center justify-center text-xs font-bold text-gray-600 bg-gray-50">PayPal</button>
-                <button class="w-20 h-10 border border-gray-200 rounded flex items-center justify-center text-xs font-bold text-gray-600 bg-gray-50">Apple Pay</button>
-                <button class="w-20 h-10 border border-gray-200 rounded flex items-center justify-center text-xs font-bold text-gray-600 bg-gray-50">Carte BC</button>
-            </div>
-        </section>
-
-        <section class="px-6 py-10 bg-gray-50 border-t border-gray-100 fade-in-up">
-            <h3 class="font-bold text-gray-900 mb-8 text-xl text-center">Elles en parlent</h3>
-            
-            <div class="space-y-6">
-                <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
-                    <div class="flex items-center mb-3">
-                        <img src="https://via.placeholder.com/60x60/7B4AEE/FFFFFF?text=P" alt="Chloé, 24 ans" class="w-10 h-10 rounded-full border border-diva-light" />
-                        <div class="ml-3">
-                            <span class="text-gray-900 font-bold block">Chloé, 24 ans</span>
-                            <div class="flex text-yellow-400 text-xs">★★★★★</div>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 text-sm">"J'ai pris le pack 2+1. Franchement, je n'y croyais pas. Après 1 mois, je m'épile deux fois moins souvent. Ma peau est super douce, un vrai bonheur !"</p>
-                </div>
-
-                <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
-                    <div class="flex items-center mb-3">
-                        <img src="https://via.placeholder.com/80x120/7B4AEE/FFFFFF?text=image_1.png" alt="Justine, 31 ans" class="w-10 h-10 rounded-full border border-diva-light" />
-                        <div class="ml-3">
-                            <span class="text-gray-900 font-bold block">Justine, 31 ans</span>
-                            <div class="flex text-yellow-400 text-xs">★★★★☆</div>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 text-sm">"C'est devenu mon indispensable après l'épilation. Ça apaise directement et je vois vraiment la différence sur la repousse. Ma peau n'est plus irritée."</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="bg-white px-6 py-8 border-t border-gray-100 text-center">
-            <h3 class="font-bold text-gray-900 mb-2">Livraison Suivie via Goshipro</h3>
-            <p class="text-xs text-gray-500 mb-4">Commandez aujourd'hui, recevez votre cure en 48h.</p>
-        </div>
-
-    </main>
-
-    <div class="fixed bottom-0 left-0 right-0 z-50 p-4 bg-white/90 backdrop-blur-md border-t border-gray-200 shadow-[0_-10px_40px_rgba(0,0,0,0.1)] sm:max-w-md sm:mx-auto">
-        <div class="flex items-center justify-between mb-2 px-1">
-            <span class="text-gray-900 font-bold text-xl">49.90 € <span class="text-diva/60 line-through text-xs ml-1">89.70 €</span></span>
-            <span class="bg-diva text-white text-xs font-bold px-2 py-1 rounded-full uppercase tracking-wide">Meilleure Valeur</span>
-        </div>
-        <a href="#TON_LIEN_CHECKOUT_2_PLUS_1" class="block w-full bg-diva hover:bg-diva-dark text-white text-center font-bold py-4 rounded-xl shadow-lg shadow-diva/30 transform transition active:scale-95 animate-pulse-slow">
-            COMMANDER L'OFFRE SPÉCIALE
-        </a>
+    <div class="hero">
+        <div class="hero-badge">Offre TikTok : -50% aujourd'hui</div>
+        <img src="https://via.placeholder.com/500x700?text=DIVASKIN+SERUM" alt="DivaSkin">
     </div>
+
+    <div class="content">
+        <div class="stars">★★★★★ <span style="color:#666; font-size: 12px;">(12 400+ avis)</span></div>
+        <h1 class="title">Stoppez la repousse des poils naturellement.</h1>
+        
+        <div style="margin: 25px 0;">
+            <div class="benefit-item">
+                <div class="icon-circle">✓</div>
+                <div class="benefit-text">
+                    <b>Ralentit la repousse à la racine</b>
+                    <p>Agit directement sur le bulbe pileux pour espacer vos épilations.</p>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <div class="icon-circle">✓</div>
+                <div class="benefit-text">
+                    <b>Fini les poils incarnés</b>
+                    <p>Réduit l'inflammation et lisse le grain de peau immédiatement.</p>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <div class="icon-circle">✓</div>
+                <div class="benefit-text">
+                    <b>Peaux Sensibles & Visage</b>
+                    <p>Formule naturelle à base de Cyperus Rotundus.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="packs-title">Sélectionnez votre cure :</h2>
+
+        <div class="pack" onclick="window.location.href='#CHECKOUT1'">
+            <div class="pack-flex">
+                <div class="pack-info">
+                    <b>1 Flacon DivaSkin</b>
+                    <p style="font-size: 12px; color: #666;">Essai 30 jours</p>
+                </div>
+                <div class="price">29.90€ <span class="old-price">49.90€</span></div>
+            </div>
+        </div>
+
+        <div class="pack popular" onclick="window.location.href='#CHECKOUT2'">
+            <div class="pack-badge">PLUS POPULAIRE</div>
+            <div class="pack-flex">
+                <div class="pack-info">
+                    <b>2 Flacons + 1 OFFERT</b>
+                    <p style="font-size: 12px; color: #666;">Cure Corps Complet</p>
+                </div>
+                <div class="price">49.90€ <span class="old-price">89.70€</span></div>
+            </div>
+        </div>
+
+        <div class="pack" onclick="window.location.href='#CHECKOUT3'">
+            <div class="pack-flex">
+                <div class="pack-info">
+                    <b>3 Flacons + 2 OFFERTS</b>
+                    <p style="font-size: 12px; color: #666;">Cure Définitive</p>
+                </div>
+                <div class="price">74.90€ <span class="old-price">149.50€</span></div>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 30px;">
+            <p style="font-size: 13px; color: #888;">Livraison Suivie 48h par Goshipro</p>
+            <div class="payments">
+                <span class="payment-icon">VISA</span>
+                <span class="payment-icon">Paypal</span>
+                <span class="payment-icon">Apple Pay</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer-cta">
+    <a href="#CHECKOUT2" class="btn">PROFITER DE L'OFFRE (-50%)</a>
+</div>
 
 </body>
 </html>
