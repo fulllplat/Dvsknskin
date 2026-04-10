@@ -3,55 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>DivaSkin™ | Sérum Anti-Repousse</title>
+    <title>DivaSkin™ | Sérum Anti-Repousse au Cyperus</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            background: linear-gradient(135deg, #fdfcfd 0%, #f3f0ff 100%);
-            color: #1a1a1a;
-            padding-bottom: 90px;
-        }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #fdfcfd; color: #1a1a1a; padding-bottom: 90px; }
         .text-diva { color: #7B4AEE; }
         .bg-diva { background-color: #7B4AEE; }
-        
-        .offer-card { 
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            border: 2px solid #ececf0;
-            background: white;
-        }
-        .offer-card.active { 
-            border-color: #7B4AEE; 
-            transform: scale(1.02);
-            box-shadow: 0 10px 20px rgba(123, 74, 238, 0.12);
-        }
-
+        .offer-card { transition: all 0.3s ease; border: 2px solid #ececf0; background: white; }
+        .offer-card.active { border-color: #7B4AEE; transform: scale(1.02); box-shadow: 0 10px 20px rgba(123, 74, 238, 0.1); }
         #cart-drawer { transform: translateX(100%); transition: transform 0.4s ease; }
         .cart-open #cart-drawer { transform: translateX(0); }
         .overlay { display: none; background: rgba(0,0,0,0.3); backdrop-filter: blur(4px); z-index: 50; }
         .cart-open .overlay { display: block; }
-
-        .sticky-btn {
-            position: fixed;
-            bottom: 0; left: 0; right: 0;
-            background: white;
-            padding: 16px;
-            box-shadow: 0 -10px 25px rgba(0,0,0,0.08);
-            z-index: 45;
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
+        .sticky-btn { position: fixed; bottom: 0; left: 0; right: 0; background: white; padding: 16px; box-shadow: 0 -10px 25px rgba(0,0,0,0.08); z-index: 45; display: flex; gap: 12px; align-items: center; }
+        .modal { display: none; position: fixed; inset: 0; background: white; z-index: 100; overflow-y: auto; padding: 20px; }
+        .modal.active { display: block; }
     </style>
 </head>
 <body class="antialiased">
 
     <div class="overlay fixed inset-0" onclick="toggleCart()"></div>
 
-    <div class="bg-diva text-white text-[10px] font-bold py-2.5 text-center uppercase tracking-[0.15em]">
-        LIVRAISON OFFERTE AUJOURD'HUI
-    </div>
+    <div class="bg-diva text-white text-[10px] font-bold py-2.5 text-center uppercase tracking-[0.15em]">LIVRAISON OFFERTE AUJOURD'HUI</div>
 
     <nav class="sticky top-0 bg-white/80 backdrop-blur-md z-40 border-b border-gray-100">
         <div class="max-w-7xl mx-auto px-4 h-14 flex justify-between items-center">
@@ -64,11 +38,10 @@
     </nav>
 
     <main class="max-w-5xl mx-auto px-4 py-4">
-        
         <div class="grid lg:grid-cols-2 gap-8">
             <div class="space-y-4">
-                <img src="produit.png.WEBP" class="w-full aspect-square object-cover rounded-[24px] shadow-sm" alt="DivaSkin">
-                <img src="points.png.PNG" class="w-full rounded-2xl border border-white/50 shadow-sm" alt="Efficacité">
+                <img src="produit.png.WEBP" class="w-full aspect-square object-cover rounded-[24px]" alt="DivaSkin">
+                <img src="points.png.PNG" class="w-full rounded-2xl border border-slate-100" alt="Efficacité">
             </div>
 
             <div class="space-y-6">
@@ -76,67 +49,42 @@
                     <div class="flex items-center gap-1 text-yellow-400 text-[10px] mb-1">★★★★★ <span class="text-slate-400 ml-1">4.8 (1,248 avis)</span></div>
                     <h1 class="text-2xl font-extrabold tracking-tight italic">Sérum Anti-Repousse</h1>
                     <p class="mt-3 text-slate-600 text-sm leading-relaxed">
-                        Formulé à base d'huile de <b>Cyperus Rotundus</b> pure, ce sérum ralentit naturellement la repousse après chaque épilation. Il apaise la zone traitée et laisse votre peau parfaitement lisse et hydratée.
+                        Formulé à base d'huile de <b>Cyperus Rotundus</b> pure, ce sérum ralentit naturellement la repousse après chaque épilation. Il apaise la zone traitée et laisse votre peau parfaitement lisse.
                     </p>
                 </div>
 
                 <div class="space-y-2">
                     <div onclick="selectOffer(1, 29.90, '1 Flacon')" id="off-1" class="offer-card p-4 rounded-xl cursor-pointer">
-                        <div class="flex justify-between items-center font-bold text-xs uppercase">
-                            <span>1 Flacon</span>
-                            <span>29.90€</span>
-                        </div>
+                        <div class="flex justify-between items-center font-bold text-xs uppercase"><span>1 Flacon</span><span>29.90€</span></div>
                     </div>
-                    <div onclick="selectOffer(2, 49.90, 'Pack 3 Flacons (2+1 Offert)')" id="off-2" class="offer-card active p-4 rounded-xl cursor-pointer relative">
-                        <span class="absolute -top-2.5 right-4 bg-diva text-white text-[8px] px-2 py-0.5 rounded-full font-bold uppercase tracking-tighter text-xs">Plus populaire</span>
-                        <div class="flex justify-between items-center font-bold">
-                            <span class="text-diva text-xs">3 FLACONS (2+1 OFFERT)</span>
-                            <span class="text-diva text-base">49.90€</span>
-                        </div>
+                    <div onclick="selectOffer(2, 49.90, '3 Flacons (2+1 Offert)')" id="off-2" class="offer-card active p-4 rounded-xl cursor-pointer relative">
+                        <span class="absolute -top-2.5 right-4 bg-diva text-white text-[8px] px-2 py-0.5 rounded-full font-bold uppercase">Plus populaire</span>
+                        <div class="flex justify-between items-center font-bold"><span class="text-diva text-xs uppercase">3 Flacons (2+1 Offert)</span><span class="text-diva text-base">49.90€</span></div>
                     </div>
-                    <div onclick="selectOffer(3, 74.90, 'Pack 5 Flacons (3+2 Offerts)')" id="off-3" class="offer-card p-4 rounded-xl cursor-pointer">
-                        <div class="flex justify-between items-center font-bold text-xs uppercase">
-                            <span>5 Flacons (3+2 Offerts)</span>
-                            <span>74.90€</span>
-                        </div>
+                    <div onclick="selectOffer(3, 74.90, '5 Flacons (3+2 Offerts)')" id="off-3" class="offer-card p-4 rounded-xl cursor-pointer">
+                        <div class="flex justify-between items-center font-bold text-xs uppercase"><span>5 Flacons (3+2 Offerts)</span><span>74.90€</span></div>
                     </div>
                 </div>
 
-                <div class="space-y-4">
-                    <button onclick="addToCart()" class="w-full bg-slate-900 text-white py-5 rounded-xl font-bold text-lg shadow-xl active:scale-95 transition-transform uppercase tracking-tight">
-                        Ajouter au panier
-                    </button>
-                    
-                    <div class="flex flex-col items-center gap-2 text-[11px] font-bold text-slate-400 uppercase tracking-tighter">
-                        <div class="flex items-center gap-2">
-                            <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                            Livraison Standard : 7-10 jours
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex justify-between items-center p-4 bg-white/50 border border-white rounded-2xl grayscale opacity-70">
-                    <div class="text-center"><p class="text-[8px] font-bold uppercase tracking-widest">🔐 Sécurisé</p></div>
-                    <div class="text-center"><p class="text-[8px] font-bold uppercase tracking-widest">🌿 Cyperus Pur</p></div>
-                    <div class="text-center"><p class="text-[8px] font-bold uppercase tracking-widest">📦 Expédié 48h</p></div>
-                </div>
+                <button onclick="addToCart()" class="w-full bg-slate-900 text-white py-5 rounded-xl font-bold text-lg shadow-xl uppercase tracking-tight">Ajouter au panier</button>
+                <p class="text-center text-[11px] font-bold text-slate-400 uppercase tracking-tighter">🚚 Livraison Standard : 7-10 jours</p>
             </div>
         </div>
 
-        <section class="mt-12 py-10 px-6 bg-white/40 border border-white rounded-[32px]">
-            <h2 class="text-lg font-extrabold text-center mb-8 uppercase italic">Mode d'emploi</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-center">
-                <div class="space-y-1">
-                    <p class="font-bold text-[10px] uppercase text-diva">01. Préparer</p>
-                    <p class="text-slate-500 text-xs">Appliquez après votre rasage ou épilation habituelle.</p>
+        <section class="mt-16 bg-white rounded-[32px] p-8 border border-slate-100">
+            <h2 class="text-xl font-extrabold mb-8 text-center uppercase italic tracking-tighter">Questions fréquentes</h2>
+            <div class="space-y-6">
+                <div class="border-b border-slate-50 pb-4">
+                    <p class="font-bold text-sm mb-2">Quand verrai-je les premiers résultats ?</p>
+                    <p class="text-xs text-slate-500">Les effets sont visibles dès les premières semaines. La repousse devient plus fine et moins dense au fil des applications.</p>
                 </div>
-                <div class="space-y-1 border-y md:border-y-0 md:border-x border-slate-100 py-4 md:py-0 md:px-6">
-                    <p class="font-bold text-[10px] uppercase text-diva">02. Appliquer</p>
-                    <p class="text-slate-500 text-xs">Massez quelques gouttes de sérum sur la zone souhaitée.</p>
+                <div class="border-b border-slate-50 pb-4">
+                    <p class="font-bold text-sm mb-2">Est-ce utilisable sur les zones sensibles ?</p>
+                    <p class="text-xs text-slate-500">Oui, notre sérum au Cyperus est 100% naturel et parfaitement adapté au maillot, aisselles et visage.</p>
                 </div>
-                <div class="space-y-1">
-                    <p class="font-bold text-[10px] uppercase text-diva">03. Routine</p>
-                    <p class="text-slate-500 text-xs">Utilisez 2 à 3 fois par semaine pour un résultat optimal.</p>
+                <div class="border-b border-slate-50 pb-4">
+                    <p class="font-bold text-sm mb-2">Comment l'utiliser pour un maximum d'efficacité ?</p>
+                    <p class="text-xs text-slate-500">Appliquez immédiatement après l'épilation (quand le pore est ouvert) et massez 2-3 minutes.</p>
                 </div>
             </div>
         </section>
@@ -147,8 +95,16 @@
         </section>
     </main>
 
-    <footer class="py-10 text-center border-t border-slate-200 opacity-40">
-        <p class="text-[8px] font-bold uppercase tracking-[0.4em]">DivaSkin™ — Tous droits réservés</p>
+    <footer class="py-12 px-6 border-t border-slate-100 bg-white mt-10">
+        <div class="max-w-5xl mx-auto text-center">
+            <div class="text-lg font-black italic mb-6 text-diva">DIVASKIN</div>
+            <div class="flex flex-wrap justify-center gap-6 text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-8">
+                <button onclick="openModal('mentions')">Mentions Légales</button>
+                <button onclick="openModal('cgv')">CGV</button>
+                <button onclick="openModal('confid')">Confidentialité</button>
+            </div>
+            <p class="text-[9px] text-slate-300 uppercase tracking-[0.4em]">© 2026 DivaSkin Strasbourg. Tous droits réservés.</p>
+        </div>
     </footer>
 
     <div class="sticky-btn lg:hidden">
@@ -156,16 +112,42 @@
             <p id="sticky-price" class="text-lg font-black text-diva leading-none">49.90€</p>
             <p id="sticky-name" class="text-[7px] font-bold text-slate-400 uppercase tracking-widest italic">3 Flacons (Offre)</p>
         </div>
-        <button onclick="addToCart()" class="bg-slate-900 text-white px-8 py-4 rounded-xl font-bold text-sm">
-            COMMANDER
-        </button>
+        <button onclick="addToCart()" class="bg-slate-900 text-white px-8 py-4 rounded-xl font-bold text-sm">COMMANDER</button>
+    </div>
+
+    <div id="modal-mentions" class="modal">
+        <button onclick="closeModal()" class="mb-8 font-bold text-xs uppercase text-slate-300">← Retour</button>
+        <h2 class="text-2xl font-black mb-6">Mentions Légales</h2>
+        <div class="text-sm text-slate-600 space-y-4">
+            <p><strong>Editeur :</strong> DivaSkin, exercé en nom propre par [Ton Nom], Strasbourg, France.</p>
+            <p><strong>Contact :</strong> contact.divaskin@gmail.com</p>
+            <p><strong>Immatriculation :</strong> Entreprise en cours d'immatriculation.</p>
+            <p><strong>Hébergeur :</strong> Vercel Inc., 340 S Lemon Ave #4133, Walnut, CA 91789, USA.</p>
+        </div>
+    </div>
+
+    <div id="modal-cgv" class="modal">
+        <button onclick="closeModal()" class="mb-8 font-bold text-xs uppercase text-slate-300">← Retour</button>
+        <h2 class="text-2xl font-black mb-6">CGV & Retours</h2>
+        <div class="text-sm text-slate-600 space-y-4">
+            <p><strong>Commandes :</strong> Toute commande passée sur le site DivaSkin implique l'acceptation des présentes CGV.</p>
+            <p><strong>Livraison :</strong> Les délais moyens sont de 7 à 10 jours ouvrés.</p>
+            <p><strong>Rétractation :</strong> Conformément à la loi, vous disposez de 14 jours pour changer d'avis.</p>
+            <p><strong>Remboursement :</strong> Le remboursement intégral sera effectué sur le mode de paiement original après réception et vérification de l'état du produit retourné.</p>
+        </div>
+    </div>
+
+    <div id="modal-confid" class="modal">
+        <button onclick="closeModal()" class="mb-8 font-bold text-xs uppercase text-slate-300">← Retour</button>
+        <h2 class="text-2xl font-black mb-6">Confidentialité</h2>
+        <div class="text-sm text-slate-600 space-y-4">
+            <p>Nous collectons vos données (Nom, adresse, mail) uniquement pour le traitement de votre commande et la livraison.</p>
+            <p>Vos données ne sont jamais revendues à des tiers.</p>
+        </div>
     </div>
 
     <div id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-[320px] bg-white z-[60] shadow-2xl flex flex-col">
-        <div class="p-6 border-b flex justify-between items-center">
-            <h2 class="font-bold text-xs uppercase">Panier</h2>
-            <button onclick="toggleCart()" class="text-[10px] font-bold text-slate-300">FERMER</button>
-        </div>
+        <div class="p-6 border-b flex justify-between items-center"><h2 class="font-bold text-xs uppercase">Panier</h2><button onclick="toggleCart()" class="text-[10px] font-bold text-slate-300">FERMER</button></div>
         <div id="cart-content" class="flex-grow p-6 space-y-4 overflow-y-auto"></div>
         <div class="p-6 border-t space-y-4 bg-slate-50">
             <div class="flex justify-between font-bold text-sm"><span>Total</span><span id="cart-total">0.00€</span></div>
@@ -186,69 +168,37 @@
         }
 
         function toggleCart() { document.body.classList.toggle('cart-open'); }
-
-        function addToCart() {
-            cart.push({...selection});
-            renderCart();
-            toggleCart();
-        }
-
+        function addToCart() { cart.push({...selection}); renderCart(); toggleCart(); }
         function renderCart() {
             const list = document.getElementById('cart-content');
             const total = document.getElementById('cart-total');
-            const badge = document.getElementById('cart-badge');
-            list.innerHTML = cart.map((item, i) => `
-                <div class="flex justify-between items-center border-b border-slate-100 pb-3">
-                    <div class="text-[10px] font-extrabold uppercase leading-tight">${item.name}</div>
-                    <div class="text-diva font-bold text-xs">${item.price}€</div>
-                </div>
-            `).join('');
+            list.innerHTML = cart.map(item => `<div class="flex justify-between items-center border-b border-slate-100 pb-3"><div class="text-[10px] font-extrabold uppercase">${item.name}</div><div class="text-diva font-bold text-xs">${item.price}€</div></div>`).join('');
             const sum = cart.reduce((a, b) => a + b.price, 0);
             total.innerText = sum.toFixed(2) + "€";
-            badge.innerText = cart.length;
+            document.getElementById('cart-badge').innerText = cart.length;
         }
 
-        const reviews = [
-            { name: "Léa.M", stars: 5, text: "Grave contente, l'huile de cyperus fait vraiment la diff sur la repousse." },
-            { name: "Sarah_92", stars: 5, text: "Colis reçu en 10 jours. Le produit est top pour calmer le feu du rasoir." },
-            { name: "Manon B.", stars: 4, text: "Pas mal du tout. Faut être assidue par contre pour voir les effets." },
-            { name: "Clara_G", stars: 5, text: "Ma peau est bcp plus lisse, je regrette pas mon achat." },
-            { name: "Mélissa", stars: 5, text: "Texture agréable, l'odeur est légère. Pack de 3 super avantageux." },
-            { name: "Julie.K", stars: 5 },
-            { name: "Inès R.", stars: 5, text: "J'utilise que ça maintenant après l'épilation." },
-            { name: "Camille", stars: 5, text: "Incroyable sur les jambes, les poils reviennent bcp moins drus." },
-            { name: "Emma_S", stars: 4 },
-            { name: "Chloé F.", stars: 5, text: "Service client réactif. Produit de bonne qualité." },
-            { name: "Marine_T", stars: 5 },
-            { name: "Océane", stars: 5, text: "C'est devenu mon indispensable routine." },
-            { name: "Lucie_75", stars: 5 },
-            { name: "Mathilde", stars: 5, text: "Efficace et naturel, c'est ce que je cherchais." },
-            { name: "Zoé G.", stars: 4 },
-            { name: "Jade L.", stars: 5, text: "Foncez les filles, ça change la vie." },
-            { name: "Mélanie", stars: 5 },
-            { name: "Eva_B", stars: 5, text: "Testé sur le maillot, aucune irritation. Je valide." },
-            { name: "Margaux", stars: 5 },
-            { name: "Noémie", stars: 5, text: "Livraison ok, emballage soigné." },
-            { name: "Fanny", stars: 4 },
-            { name: "Elisa", stars: 5, text: "Enfin une solution naturelle qui fonctionne." },
-            { name: "Justine", stars: 5 },
-            { name: "Clémence", stars: 5, text: "Je commande pour la 2ème fois." },
-            { name: "Amandine", stars: 5 },
-            { name: "Sonia_K", stars: 5, text: "Satisfaite du résultat après 1 mois." },
-            { name: "Lola", stars: 5 },
-            { name: "Pauline", stars: 4 },
-            { name: "Célia", stars: 5 },
-            { name: "Sandra", stars: 5, text: "Génial, j'adore le rendu sur ma peau." }
-        ];
+        function openModal(id) { document.getElementById('modal-' + id).classList.add('active'); document.body.style.overflow = 'hidden'; }
+        function closeModal() { document.querySelectorAll('.modal').forEach(m => m.classList.remove('active')); document.body.style.overflow = 'auto'; }
 
+        // AVIS
+        const reviews = [
+            { name: "Léa.M", stars: 5, text: "Franchement bluffée, mes poils au maillot repoussent bcp moins vite." },
+            { name: "Sarah_92", stars: 5, text: "Colis reçu en 10 jours. L'huile de cyperus calme bien la peau." },
+            { name: "Manon B.", stars: 4, text: "Pas mal, faut être bien régulière pour voir le résultat." },
+            { name: "Clara_G", stars: 5, text: "Plus de peau irritée, je suis super contente." },
+            { name: "Mélissa", stars: 5, text: "Texture top, pas grasse." },
+            { name: "Julie", stars: 5 }, { name: "Inès R.", stars: 5 }, { name: "Camille", stars: 5 },
+            { name: "Emma_S", stars: 4 }, { name: "Chloé", stars: 5 }, { name: "Marine_T", stars: 5 },
+            { name: "Océane", stars: 5 }, { name: "Lucie_75", stars: 5 }, { name: "Mathilde", stars: 5 },
+            { name: "Zoé G.", stars: 4 }, { name: "Jade", stars: 5 }, { name: "Mélanie", stars: 5 },
+            { name: "Eva_B", stars: 5 }, { name: "Margaux", stars: 5 }, { name: "Noémie", stars: 5 },
+            { name: "Fanny", stars: 4 }, { name: "Elisa", stars: 5 }, { name: "Justine", stars: 5 },
+            { name: "Clémence", stars: 5 }, { name: "Amandine", stars: 5 }, { name: "Sonia_K", stars: 5 },
+            { name: "Lola", stars: 5 }, { name: "Pauline", stars: 4 }, { name: "Célia", stars: 5 }, { name: "Sandra", stars: 5 }
+        ];
         const container = document.getElementById('reviews-container');
-        container.innerHTML = reviews.map(r => `
-            <div class="bg-white p-4 rounded-2xl border border-slate-50 shadow-sm flex flex-col justify-center min-h-[80px]">
-                <div class="text-yellow-400 text-[8px] mb-1">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div>
-                ${r.text ? `<p class="text-[11px] font-medium text-slate-600 leading-tight mb-2 italic">"${r.text}"</p>` : ''}
-                <p class="text-[9px] font-bold text-slate-300 uppercase">${r.name}</p>
-            </div>
-        `).join('');
+        container.innerHTML = reviews.map(r => `<div class="bg-white p-4 rounded-2xl border border-slate-50 shadow-sm min-h-[80px]"><div class="text-yellow-400 text-[8px] mb-1">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div>${r.text ? `<p class="text-[11px] font-medium text-slate-600 leading-tight mb-2 italic">"${r.text}"</p>` : ''}<p class="text-[9px] font-bold text-slate-300 uppercase">${r.name}</p></div>`).join('');
     </script>
 </body>
 </html>
