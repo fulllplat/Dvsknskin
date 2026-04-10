@@ -3,302 +3,207 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>DivaSkin™ | Sérum Anti-Repousse Naturel</title>
+    <title>DivaSkin™ | Sérum Anti-Repousse Haute Performance</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #fafafa; color: #1a1a1a; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #ffffff; color: #1a1a1a; }
         .bg-diva { background-color: #7B4AEE; }
         .text-diva { color: #7B4AEE; }
         .border-diva { border-color: #7B4AEE; }
         .bg-soft-diva { background-color: #F4EFFF; }
         
-        /* Custom Animations */
-        .fade-in { animation: fadeIn 0.6s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* Panier & Modales */
+        #cart-drawer, #legal-modal { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .cart-open #cart-drawer { transform: translateX(0); }
+        .modal-hidden { display: none; }
         
-        /* Cart Drawer */
-        #cart-drawer { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); transform: translateX(100%); }
-        body.cart-open #cart-drawer { transform: translateX(0); }
-        body.cart-open { overflow: hidden; }
-        .overlay { display: none; background: rgba(0,0,0,0.4); backdrop-filter: blur(4px); }
-        body.cart-open .overlay { display: block; z-index: 50; }
+        /* Sticky Bar */
+        #sticky-bar { transform: translateY(100%); transition: transform 0.3s ease; }
+        #sticky-bar.visible { transform: translateY(0); }
 
-        /* Gallery Scrollbar */
-        .no-scrollbar::-webkit-scrollbar { display: none; }
+        /* FAQ Accordion */
+        .faq-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+        .faq-item.active .faq-content { max-height: 200px; }
+        .faq-item.active svg { transform: rotate(180deg); }
     </style>
 </head>
 <body class="antialiased">
 
-    <div class="overlay fixed inset-0" onclick="toggleCart()"></div>
-
-    <div class="bg-diva text-white text-[10px] font-bold py-2 text-center uppercase tracking-[0.2em]">
-        Livraison offerte dès 2 flacons partout en Europe
+    <div class="bg-diva text-white text-[10px] font-bold py-2.5 text-center uppercase tracking-[0.2em]">
+        OFFRE FLASH TIKTOK : -50% SUR LA CURE 3 MOIS
     </div>
 
-    <header class="sticky top-0 bg-white/90 backdrop-blur-md z-40 border-b border-gray-100">
+    <nav class="sticky top-0 bg-white/80 backdrop-blur-md z-40 border-b border-gray-100">
         <div class="max-w-7xl mx-auto px-4 h-16 flex justify-between items-center">
             <div class="text-xl font-extrabold tracking-tighter uppercase italic">DIVA<span class="text-diva">SKIN</span></div>
-            <div class="flex items-center gap-4">
-                <button onclick="toggleCart()" class="relative p-2">
-                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6zM3 6h18M16 10a4 4 0 01-8 0"/></svg>
-                    <span id="cart-count" class="absolute top-0 right-0 bg-diva text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
-                </button>
-            </div>
+            <button onclick="toggleCart()" class="relative p-2">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6zM3 6h18M16 10a4 4 0 01-8 0"/></svg>
+                <span id="cart-count" class="absolute top-0 right-0 bg-diva text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
+            </button>
         </div>
-    </header>
+    </nav>
 
-    <main class="max-w-7xl mx-auto md:px-6">
-
-        <div class="grid lg:grid-cols-12 gap-8 py-8">
+    <main class="max-w-7xl mx-auto px-4 md:px-6">
+        
+        <div class="grid lg:grid-cols-12 gap-12 py-10" id="main-buy-area">
             
             <div class="lg:col-span-7 space-y-4">
-                <div class="flex overflow-x-auto snap-x snap-mandatory no-scrollbar lg:grid lg:grid-cols-2 lg:gap-4 lg:overflow-visible">
-                    <div class="snap-center shrink-0 w-full lg:w-auto">
-                        <img src="https://images.unsplash.com/photo-1556229167-33020614036d?auto=format&fit=crop&q=80&w=800" class="w-full h-[500px] object-cover rounded-2xl lg:rounded-3xl" alt="DivaSkin Packaging">
-                    </div>
-                    <div class="snap-center shrink-0 w-full lg:w-auto">
-                        <img src="https://images.unsplash.com/photo-1590156191102-0ae7963d8935?auto=format&fit=crop&q=80&w=800" class="w-full h-[500px] object-cover rounded-2xl lg:rounded-3xl" alt="DivaSkin Application">
-                    </div>
-                </div>
-                <div class="hidden lg:block bg-soft-diva p-6 rounded-3xl border border-diva/10">
-                    <h4 class="font-bold mb-2">Pourquoi ça fonctionne ?</h4>
-                    <p class="text-sm text-slate-600">Le *Cyperus Rotundus* inhibe l'activité enzymatique du follicule pileux. Au fil des jours, le poil s'affine, s'éclaircit et finit par ne plus repousser.</p>
+                <div class="grid grid-cols-1 gap-4">
+                    <img src="https://images.unsplash.com/photo-1612817288484-6f916006741a?auto=format&fit=crop&q=80&w=1200" class="w-full h-[600px] object-cover rounded-[32px] shadow-sm" alt="DivaSkin">
                 </div>
             </div>
 
-            <div class="lg:col-span-5 px-4 lg:px-0">
-                <div class="sticky top-24 space-y-6">
-                    <div>
-                        <div class="flex items-center gap-1 text-yellow-400 text-sm mb-2">★★★★★ <span class="text-slate-400 font-medium ml-2">(4.9/5 - 1,248 avis)</span></div>
-                        <h1 class="text-4xl font-extrabold tracking-tight mb-2">Sérum Anti-Repousse DivaSkin™</h1>
-                        <p class="text-slate-500 font-medium italic">Libérez-vous de la corvée du rasage.</p>
-                    </div>
+            <div class="lg:col-span-5 space-y-8">
+                <div>
+                    <div class="flex items-center gap-2 text-yellow-400 text-sm mb-4">★★★★★ <span class="text-slate-400 font-bold ml-1">4.9 (1,248 avis)</span></div>
+                    <h1 class="text-5xl font-black tracking-tight leading-tight mb-4">Sérum Divin <br><span class="text-diva">Anti-Repousse</span></h1>
+                    <p class="text-slate-500 text-lg leading-relaxed">Une technologie naturelle qui "met en sommeil" vos poils. Efficace dès la première semaine.</p>
+                </div>
 
-                    <div class="space-y-3">
-                        <div id="offer-1" onclick="selectOffer(1, 29.90, '1 Flacon DivaSkin')" class="offer-card group cursor-pointer border-2 border-gray-100 rounded-2xl p-4 transition-all hover:border-diva/30">
-                            <div class="flex justify-between items-center">
-                                <div>
-                                    <span class="text-xs font-bold text-slate-400 uppercase">Pack Individuel</span>
-                                    <h3 class="font-bold text-lg">1 Flacon DivaSkin</h3>
-                                </div>
-                                <div class="text-right">
-                                    <div class="font-bold text-xl">29.90€</div>
-                                    <div class="text-[10px] text-slate-300 line-through italic">49.90€</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="offer-2" onclick="selectOffer(2, 49.90, 'Pack 2+1 OFFERT')" class="offer-card cursor-pointer border-2 border-diva bg-soft-diva rounded-2xl p-4 relative shadow-lg shadow-diva/10">
-                            <span class="absolute -top-3 right-4 bg-diva text-white text-[9px] font-bold px-3 py-1 rounded-full uppercase">Le plus populaire</span>
-                            <div class="flex justify-between items-center">
-                                <div>
-                                    <span class="text-xs font-bold text-diva uppercase tracking-wider">Cure Confiance</span>
-                                    <h3 class="font-bold text-lg">2 Flacons + 1 OFFERT</h3>
-                                    <p class="text-[10px] text-diva/70 font-semibold italic mt-1">Économie de 40€</p>
-                                </div>
-                                <div class="text-right">
-                                    <div class="font-bold text-2xl text-diva">49.90€</div>
-                                    <div class="text-[10px] text-slate-300 line-through">89.70€</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="offer-3" onclick="selectOffer(3, 74.90, 'Pack 3+2 OFFERTS')" class="offer-card cursor-pointer border-2 border-gray-100 rounded-2xl p-4 transition-all hover:border-diva/30">
-                            <div class="flex justify-between items-center">
-                                <div>
-                                    <span class="text-xs font-bold text-slate-400 uppercase">Cure Intégrale</span>
-                                    <h3 class="font-bold text-lg">3 Flacons + 2 OFFERTS</h3>
-                                </div>
-                                <div class="text-right">
-                                    <div class="font-bold text-xl">74.90€</div>
-                                    <div class="text-[10px] text-slate-300 line-through italic text-xs">149.50€</div>
-                                </div>
-                            </div>
+                <div class="space-y-4" id="offers">
+                    <div onclick="selectOffer(1, 29.90, '1 Flacon DivaSkin')" id="off-1" class="offer border-2 border-gray-100 p-5 rounded-2xl cursor-pointer transition-all">
+                        <div class="flex justify-between items-center font-bold">
+                            <span>1 FLACON</span>
+                            <span>29.90€</span>
                         </div>
                     </div>
-
-                    <button onclick="handleAddToCart()" class="w-full bg-diva text-white py-5 rounded-2xl font-bold text-lg shadow-xl shadow-diva/20 hover:scale-[1.01] active:scale-[0.98] transition-all flex justify-center items-center gap-2">
-                        <span>AJOUTER AU PANIER</span>
-                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
-                    </button>
-
-                    <div class="grid grid-cols-3 gap-2 border-t pt-6">
-                        <div class="text-center">
-                            <div class="text-diva mb-1 flex justify-center"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div>
-                            <span class="text-[10px] font-bold text-slate-400 uppercase">100% Naturel</span>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-diva mb-1 flex justify-center"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
-                            <span class="text-[10px] font-bold text-slate-400 uppercase">Testé Dermatologie</span>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-diva mb-1 flex justify-center"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg></div>
-                            <span class="text-[10px] font-bold text-slate-400 uppercase">Paiement Sécurisé</span>
+                    <div onclick="selectOffer(2, 49.90, 'Pack 2+1 OFFERT')" id="off-2" class="offer border-2 border-diva bg-soft-diva p-5 rounded-2xl cursor-pointer transition-all relative">
+                        <span class="absolute -top-3 right-4 bg-diva text-white text-[9px] px-3 py-1 rounded-full">OFFRE RECOMMANDÉE</span>
+                        <div class="flex justify-between items-center font-bold">
+                            <span class="text-diva">2 FLACONS + 1 OFFERT</span>
+                            <span class="text-diva text-xl">49.90€</span>
                         </div>
                     </div>
+                    <div onclick="selectOffer(3, 74.90, 'Pack 3+2 OFFERTS')" id="off-3" class="offer border-2 border-gray-100 p-5 rounded-2xl cursor-pointer transition-all">
+                        <div class="flex justify-between items-center font-bold">
+                            <span>3 FLACONS + 2 OFFERTS</span>
+                            <span>74.90€</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <button onclick="handleAddToCart()" class="w-full bg-slate-900 text-white py-6 rounded-2xl font-black text-xl hover:bg-black transition-all shadow-xl">AJOUTER AU PANIER</button>
+                    <p class="text-center text-xs font-bold text-red-500 animate-pulse">🔥 Stock limité : Plus que 7 exemplaires disponibles</p>
+                </div>
+
+                <div class="pt-8 border-t border-gray-100">
+                    <div class="flex gap-6 mb-4 text-xs font-bold uppercase tracking-widest text-slate-400">
+                        <button class="text-diva border-b-2 border-diva pb-1">Science</button>
+                        <button>Conseils</button>
+                        <button>Ingrédients</button>
+                    </div>
+                    <p class="text-sm text-slate-500 leading-relaxed">Le Cyperus Rotundus est une plante dont l'extrait agit directement sur la phase anagène du poil. En l'utilisant quotidiennement, le follicule réduit sa production de kératine, rendant le poil invisible.</p>
                 </div>
             </div>
         </div>
 
-        <section class="py-16 bg-white rounded-[40px] my-12 px-6 shadow-sm border border-slate-50">
-            <div class="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
-                <div>
-                    <h2 class="text-3xl font-extrabold tracking-tight">Expériences clientes</h2>
-                    <p class="text-slate-400 mt-1">Basé sur 1,248 retours vérifiés.</p>
+        <section class="py-20 border-t border-gray-100">
+            <h2 class="text-3xl font-black mb-10 text-center uppercase italic tracking-tighter">Questions fréquentes</h2>
+            <div class="max-w-3xl mx-auto space-y-4">
+                <div class="faq-item border border-gray-100 rounded-2xl p-6 cursor-pointer" onclick="toggleFaq(this)">
+                    <div class="flex justify-between items-center font-bold">
+                        <span>Est-ce utilisable sur le visage ?</span>
+                        <svg class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="faq-content text-slate-500 text-sm mt-4">Oui, DivaSkin est formulé pour être extrêmement doux. Il est idéal pour la lèvre supérieure, le menton et les pommettes.</div>
                 </div>
-                <button class="bg-slate-100 text-slate-900 px-6 py-3 rounded-xl font-bold text-sm hover:bg-slate-200 transition-all">Laisser un avis</button>
-            </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="p-6 rounded-3xl bg-slate-50">
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="flex gap-1 text-yellow-400 text-xs">★★★★★</div>
-                        <span class="text-[10px] text-slate-400 font-bold uppercase">Il y a 2 jours</span>
+                <div class="faq-item border border-gray-100 rounded-2xl p-6 cursor-pointer" onclick="toggleFaq(this)">
+                    <div class="flex justify-between items-center font-bold">
+                        <span>En combien de temps voit-on les résultats ?</span>
+                        <svg class="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </div>
-                    <p class="text-sm font-medium italic mb-4">"J'étais sceptique sur l'effet de l'huile de fourmi (souvent du fake), mais là c'est un vrai sérum. Mes jambes sont plus douces, j'espace le rasoir de 10 jours maintenant."</p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-full bg-slate-200"></div>
-                        <span class="text-xs font-bold text-slate-900">Julie D. <span class="text-green-500 ml-1">✓ Acheteuse vérifiée</span></span>
-                    </div>
-                </div>
-                <div class="p-6 rounded-3xl bg-slate-50">
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="flex gap-1 text-yellow-400 text-xs">★★★★★</div>
-                        <span class="text-[10px] text-slate-400 font-bold uppercase">Il y a 1 semaine</span>
-                    </div>
-                    <p class="text-sm font-medium italic mb-4">"Texture non grasse, odeur légère. Ça m'a vraiment calmé les rougeurs au maillot après l'épilation. La repousse est clairement plus lente après 3 semaines."</p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-full bg-slate-200"></div>
-                        <span class="text-xs font-bold text-slate-900">Inès B. <span class="text-green-500 ml-1">✓ Acheteuse vérifiée</span></span>
-                    </div>
-                </div>
-                <div class="p-6 rounded-3xl bg-slate-50">
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="flex gap-1 text-yellow-400 text-xs">★★★★★</div>
-                        <span class="text-[10px] text-slate-400 font-bold uppercase">Il y a 12 jours</span>
-                    </div>
-                    <p class="text-sm font-medium italic mb-4">"Top pour le visage, j'avais peur des réactions mais c'est très doux. Le flacon dure plus longtemps que ce que je pensais."</p>
-                    <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-full bg-slate-200"></div>
-                        <span class="text-xs font-bold text-slate-900">Camille L. <span class="text-green-500 ml-1">✓ Acheteuse vérifiée</span></span>
-                    </div>
+                    <div class="faq-content text-slate-500 text-sm mt-4">Les premiers ralentissements sont visibles après 7 à 10 jours d'utilisation quotidienne. Une cure de 3 mois est conseillée pour un résultat optimal.</div>
                 </div>
             </div>
         </section>
-
     </main>
 
-    <footer class="bg-slate-900 text-white pt-20 pb-10 px-6">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid md:grid-cols-4 gap-12 mb-16">
-                <div class="col-span-1 md:col-span-2">
-                    <div class="text-2xl font-black tracking-tighter uppercase italic mb-6">DIVA<span class="text-diva">SKIN</span></div>
-                    <p class="text-slate-400 max-w-sm text-sm">Laboratoire spécialisé dans les solutions dermatologiques naturelles à haute efficacité. Notre mission : simplifier votre routine beauté.</p>
-                </div>
-                <div>
-                    <h5 class="font-bold text-sm uppercase tracking-widest mb-6">Support</h5>
-                    <ul class="space-y-4 text-sm text-slate-400">
-                        <li><a href="#" class="hover:text-diva transition-colors">Suivre ma commande</a></li>
-                        <li><a href="#" class="hover:text-diva transition-colors">FAQ</a></li>
-                        <li><a href="#" class="hover:text-diva transition-colors">Contact</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h5 class="font-bold text-sm uppercase tracking-widest mb-6">Légal</h5>
-                    <ul class="space-y-4 text-sm text-slate-400">
-                        <li><a href="#" class="hover:text-diva transition-colors">CGV</a></li>
-                        <li><a href="#" class="hover:text-diva transition-colors">Mentions Légales</a></li>
-                        <li><a href="#" class="hover:text-diva transition-colors">Politique de Confidentialité</a></li>
-                    </ul>
-                </div>
+    <footer class="bg-slate-50 py-20 px-6">
+        <div class="max-w-7xl mx-auto text-center">
+            <div class="text-2xl font-black mb-10 italic">DIVA<span class="text-diva">SKIN</span></div>
+            <div class="flex flex-wrap justify-center gap-8 text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-10">
+                <button onclick="openLegal('cgv')">CGV</button>
+                <button onclick="openLegal('privacy')">Confidentialité</button>
+                <button onclick="openLegal('returns')">Retours</button>
             </div>
-            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
-                <p class="text-[10px] text-slate-500">© 2026 DIVASKIN LTD. Tous droits réservés.</p>
-                <div class="flex gap-4 opacity-50 grayscale">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" class="h-4">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_Pay_logo.svg" class="h-4">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" class="h-4">
-                </div>
-            </div>
+            <p class="text-[10px] text-slate-300">© 2026 DIVASKIN LTD. Expert en soins cosmétiques.</p>
         </div>
     </footer>
 
-    <div id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-sm bg-white z-[60] shadow-2xl flex flex-col">
-        <div class="p-6 border-b flex justify-between items-center bg-slate-50">
-            <h2 class="text-xl font-extrabold tracking-tight">Mon Panier</h2>
+    <div id="sticky-bar" class="fixed bottom-0 left-0 right-0 bg-white border-t p-4 z-50 flex justify-between items-center shadow-[0_-10px_30px_rgba(0,0,0,0.05)] md:hidden">
+        <div class="font-black text-lg" id="sticky-price">49.90€</div>
+        <button onclick="handleAddToCart()" class="bg-diva text-white px-8 py-3 rounded-xl font-bold text-sm">ACHETER MAINTENANT</button>
+    </div>
+
+    <div id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-sm bg-white z-[100] shadow-2xl flex flex-col translate-x-full">
+        <div class="p-6 border-b flex justify-between items-center">
+            <h2 class="text-xl font-black uppercase italic tracking-tighter">Votre Panier</h2>
             <button onclick="toggleCart()" class="p-2"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
         </div>
-        <div id="cart-content" class="flex-grow overflow-y-auto p-6 space-y-4">
-            </div>
+        <div id="cart-items" class="flex-grow p-6 space-y-4 overflow-y-auto"></div>
         <div class="p-6 border-t space-y-4">
-            <div class="flex justify-between font-bold text-xl">
-                <span>Sous-total</span>
-                <span id="cart-total">0.00€</span>
-            </div>
-            <button class="w-full bg-slate-900 text-white py-5 rounded-2xl font-bold flex justify-center items-center gap-3 hover:bg-black transition-all">
-                <span>PROCÉDER AU PAIEMENT</span>
-            </button>
-            <p class="text-[10px] text-slate-400 text-center">TVA incluse. Livraison calculée lors du paiement.</p>
+            <div class="flex justify-between font-black text-xl"><span>Total</span><span id="cart-total">0.00€</span></div>
+            <button class="w-full bg-diva text-white py-5 rounded-2xl font-bold">COMMANDER</button>
+            <div class="flex justify-center gap-4 opacity-40 grayscale"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" class="h-4"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_Pay_logo.svg" class="h-4"></div>
         </div>
     </div>
 
+    <div id="legal-modal" class="fixed inset-0 bg-white z-[200] p-10 overflow-y-auto modal-hidden">
+        <button onclick="closeLegal()" class="fixed top-6 right-6 font-bold uppercase text-xs tracking-widest border-b-2 border-black">Fermer</button>
+        <div id="legal-content" class="max-w-2xl mx-auto prose pt-10">
+            </div>
+    </div>
+
     <script>
-        let currentOffer = { id: 2, price: 49.90, name: 'Pack 2+1 OFFERT' };
+        let currentPrice = 49.90;
+        let currentName = 'Pack 2+1 OFFERT';
         let cart = [];
 
         function selectOffer(id, price, name) {
-            currentOffer = { id, price, name };
-            document.querySelectorAll('.offer-card').forEach(card => {
-                card.classList.remove('border-diva', 'bg-soft-diva', 'shadow-lg');
-                card.classList.add('border-gray-100');
-            });
-            const el = document.getElementById('offer-' + id);
-            el.classList.add('border-diva', 'bg-soft-diva', 'shadow-lg');
-            el.classList.remove('border-gray-100');
+            currentPrice = price; currentName = name;
+            document.querySelectorAll('.offer').forEach(el => el.className = 'offer border-2 border-gray-100 p-5 rounded-2xl cursor-pointer transition-all');
+            const sel = document.getElementById('off-' + id);
+            sel.className = 'offer border-2 border-diva bg-soft-diva p-5 rounded-2xl cursor-pointer transition-all relative shadow-lg shadow-diva/10';
+            document.getElementById('sticky-price').innerText = price + "€";
         }
 
-        function toggleCart() {
-            document.body.classList.toggle('cart-open');
-        }
-
+        function toggleCart() { document.body.classList.toggle('cart-open'); }
+        
         function handleAddToCart() {
-            cart.push({...currentOffer});
+            cart.push({ name: currentName, price: currentPrice });
             updateCart();
             toggleCart();
         }
 
         function updateCart() {
-            const content = document.getElementById('cart-content');
-            const totalEl = document.getElementById('cart-total');
-            const countEl = document.getElementById('cart-count');
-            
-            if (cart.length === 0) {
-                content.innerHTML = '<p class="text-slate-400 text-center py-20 italic">Votre panier est vide.</p>';
-                totalEl.innerText = "0.00€";
-                countEl.innerText = "0";
-                return;
-            }
-
-            content.innerHTML = cart.map((item, i) => `
-                <div class="flex justify-between items-center p-4 bg-slate-50 rounded-2xl fade-in">
-                    <div>
-                        <p class="font-bold text-sm">${item.name}</p>
-                        <p class="text-diva font-bold">${item.price.toFixed(2)}€</p>
-                    </div>
-                    <button onclick="removeFromCart(${i})" class="text-slate-300 hover:text-red-500"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 18L18 6M6 6l12 12"/></svg></button>
-                </div>
-            `).join('');
-
-            const total = cart.reduce((acc, item) => acc + item.price, 0);
-            totalEl.innerText = total.toFixed(2) + "€";
-            countEl.innerText = cart.length;
+            const list = document.getElementById('cart-items');
+            list.innerHTML = cart.map((item, i) => `<div class="bg-slate-50 p-4 rounded-xl flex justify-between"><div><p class="font-bold text-xs uppercase">${item.name}</p><p class="text-diva font-bold">${item.price}€</p></div><button onclick="removeFromCart(${i})" class="text-slate-300 hover:text-red-500 text-xs font-bold uppercase">Suppr.</button></div>`).join('');
+            const total = cart.reduce((acc, v) => acc + v.price, 0);
+            document.getElementById('cart-total').innerText = total.toFixed(2) + "€";
+            document.getElementById('cart-count').innerText = cart.length;
         }
 
-        function removeFromCart(i) {
-            cart.splice(i, 1);
-            updateCart();
+        function removeFromCart(i) { cart.splice(i, 1); updateCart(); }
+
+        function toggleFaq(el) { el.classList.toggle('active'); }
+
+        // Sticky Bar Logic
+        window.onscroll = function() {
+            const bar = document.getElementById('sticky-bar');
+            if (window.scrollY > 800) bar.classList.add('visible');
+            else bar.classList.remove('visible');
+        };
+
+        // Legal Content Sim
+        function openLegal(type) {
+            const modal = document.getElementById('legal-modal');
+            const content = document.getElementById('legal-content');
+            modal.classList.remove('modal-hidden');
+            content.innerHTML = `<h1 class="text-3xl font-black uppercase italic mb-8">${type} DivaSkin</h1><p class="text-slate-500">Ici s'affichent vos mentions légales complètes pour la section ${type}. Ce site est conforme aux normes e-commerce 2026.</p>`;
         }
+        function closeLegal() { document.getElementById('legal-modal').classList.add('modal-hidden'); }
     </script>
 </body>
 </html>
