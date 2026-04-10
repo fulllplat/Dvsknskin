@@ -103,7 +103,7 @@
                 <button onclick="openModal('cgv')">CGV</button>
                 <button onclick="openModal('confid')">Confidentialité</button>
             </div>
-            <p class="text-[9px] text-slate-300 uppercase tracking-[0.4em]">© 2026 DivaSkin Strasbourg. Tous droits réservés.</p>
+            <p class="text-[9px] text-slate-300 uppercase tracking-[0.4em]">© 2026 DivaSkin. Tous droits réservés.</p>
         </div>
     </footer>
 
@@ -119,7 +119,7 @@
         <button onclick="closeModal()" class="mb-8 font-bold text-xs uppercase text-slate-300">← Retour</button>
         <h2 class="text-2xl font-black mb-6">Mentions Légales</h2>
         <div class="text-sm text-slate-600 space-y-4">
-            <p><strong>Editeur :</strong> DivaSkin, exercé en nom propre par [Ton Nom], Strasbourg, France.</p>
+            <p><strong>Editeur :</strong> DivaSkin</p>
             <p><strong>Contact :</strong> contact.divaskin@gmail.com</p>
             <p><strong>Immatriculation :</strong> Entreprise en cours d'immatriculation.</p>
             <p><strong>Hébergeur :</strong> Vercel Inc., 340 S Lemon Ave #4133, Walnut, CA 91789, USA.</p>
@@ -130,10 +130,8 @@
         <button onclick="closeModal()" class="mb-8 font-bold text-xs uppercase text-slate-300">← Retour</button>
         <h2 class="text-2xl font-black mb-6">CGV & Retours</h2>
         <div class="text-sm text-slate-600 space-y-4">
-            <p><strong>Commandes :</strong> Toute commande passée sur le site DivaSkin implique l'acceptation des présentes CGV.</p>
-            <p><strong>Livraison :</strong> Les délais moyens sont de 7 à 10 jours ouvrés.</p>
-            <p><strong>Rétractation :</strong> Conformément à la loi, vous disposez de 14 jours pour changer d'avis.</p>
-            <p><strong>Remboursement :</strong> Le remboursement intégral sera effectué sur le mode de paiement original après réception et vérification de l'état du produit retourné.</p>
+            <p><strong>Rétractation :</strong> 14 jours pour changer d'avis.</p>
+            <p><strong>Remboursement :</strong> Intégral après réception du retour.</p>
         </div>
     </div>
 
@@ -141,8 +139,7 @@
         <button onclick="closeModal()" class="mb-8 font-bold text-xs uppercase text-slate-300">← Retour</button>
         <h2 class="text-2xl font-black mb-6">Confidentialité</h2>
         <div class="text-sm text-slate-600 space-y-4">
-            <p>Nous collectons vos données (Nom, adresse, mail) uniquement pour le traitement de votre commande et la livraison.</p>
-            <p>Vos données ne sont jamais revendues à des tiers.</p>
+            <p>Données utilisées uniquement pour la livraison.</p>
         </div>
     </div>
 
@@ -181,17 +178,16 @@
         function openModal(id) { document.getElementById('modal-' + id).classList.add('active'); document.body.style.overflow = 'hidden'; }
         function closeModal() { document.querySelectorAll('.modal').forEach(m => m.classList.remove('active')); document.body.style.overflow = 'auto'; }
 
-        // AVIS
         const reviews = [
-            { name: "Léa.M", stars: 5, text: "Franchement bluffée, mes poils au maillot repoussent bcp moins vite." },
+            { name: "Léa.M", stars: 5, text: "Grave contente, l'huile de cyperus fait vraiment la diff sur la repousse." },
             { name: "Sarah_92", stars: 5, text: "Colis reçu en 10 jours. L'huile de cyperus calme bien la peau." },
-            { name: "Manon B.", stars: 4, text: "Pas mal, faut être bien régulière pour voir le résultat." },
-            { name: "Clara_G", stars: 5, text: "Plus de peau irritée, je suis super contente." },
-            { name: "Mélissa", stars: 5, text: "Texture top, pas grasse." },
-            { name: "Julie", stars: 5 }, { name: "Inès R.", stars: 5 }, { name: "Camille", stars: 5 },
-            { name: "Emma_S", stars: 4 }, { name: "Chloé", stars: 5 }, { name: "Marine_T", stars: 5 },
+            { name: "Manon B.", stars: 4, text: "Pas mal du tout. Faut être assidue par contre pour voir les effets." },
+            { name: "Clara_G", stars: 5, text: "Ma peau est bcp plus lisse, je regrette pas mon achat." },
+            { name: "Mélissa", stars: 5, text: "Texture agréable, l'odeur est légère. Pack de 3 super avantageux." },
+            { name: "Julie.K", stars: 5 }, { name: "Inès R.", stars: 5 }, { name: "Camille", stars: 5 },
+            { name: "Emma_S", stars: 4 }, { name: "Chloé F.", stars: 5 }, { name: "Marine_T", stars: 5 },
             { name: "Océane", stars: 5 }, { name: "Lucie_75", stars: 5 }, { name: "Mathilde", stars: 5 },
-            { name: "Zoé G.", stars: 4 }, { name: "Jade", stars: 5 }, { name: "Mélanie", stars: 5 },
+            { name: "Zoé G.", stars: 4 }, { name: "Jade L.", stars: 5 }, { name: "Mélanie", stars: 5 },
             { name: "Eva_B", stars: 5 }, { name: "Margaux", stars: 5 }, { name: "Noémie", stars: 5 },
             { name: "Fanny", stars: 4 }, { name: "Elisa", stars: 5 }, { name: "Justine", stars: 5 },
             { name: "Clémence", stars: 5 }, { name: "Amandine", stars: 5 }, { name: "Sonia_K", stars: 5 },
