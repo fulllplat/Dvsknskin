@@ -11,7 +11,7 @@
             font-family: 'Plus Jakarta Sans', sans-serif; 
             background: linear-gradient(135deg, #fdfcfd 0%, #f3f0ff 100%);
             color: #1a1a1a;
-            padding-bottom: 80px; /* Espace pour le bouton sticky */
+            padding-bottom: 90px;
         }
         .text-diva { color: #7B4AEE; }
         .bg-diva { background-color: #7B4AEE; }
@@ -24,24 +24,20 @@
         .offer-card.active { 
             border-color: #7B4AEE; 
             transform: scale(1.02);
-            box-shadow: 0 10px 20px rgba(123, 74, 238, 0.15);
+            box-shadow: 0 10px 20px rgba(123, 74, 238, 0.12);
         }
 
-        /* Panier slide */
         #cart-drawer { transform: translateX(100%); transition: transform 0.4s ease; }
         .cart-open #cart-drawer { transform: translateX(0); }
         .overlay { display: none; background: rgba(0,0,0,0.3); backdrop-filter: blur(4px); z-index: 50; }
         .cart-open .overlay { display: block; }
 
-        /* Bouton Sticky Mobile */
         .sticky-btn {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            bottom: 0; left: 0; right: 0;
             background: white;
-            padding: 12px 16px;
-            box-shadow: 0 -10px 20px rgba(0,0,0,0.05);
+            padding: 16px;
+            box-shadow: 0 -10px 25px rgba(0,0,0,0.08);
             z-index: 45;
             display: flex;
             gap: 12px;
@@ -69,7 +65,7 @@
 
     <main class="max-w-5xl mx-auto px-4 py-4">
         
-        <div class="grid lg:grid-cols-2 gap-8 items-start">
+        <div class="grid lg:grid-cols-2 gap-8">
             <div class="space-y-4">
                 <img src="produit.png.WEBP" class="w-full aspect-square object-cover rounded-[24px] shadow-sm" alt="DivaSkin">
                 <img src="points.png.PNG" class="w-full rounded-2xl border border-white/50 shadow-sm" alt="Efficacité">
@@ -78,9 +74,9 @@
             <div class="space-y-6">
                 <div>
                     <div class="flex items-center gap-1 text-yellow-400 text-[10px] mb-1">★★★★★ <span class="text-slate-400 ml-1">4.8 (1,248 avis)</span></div>
-                    <h1 class="text-2xl font-extrabold tracking-tight">Sérum Anti-Repousse</h1>
+                    <h1 class="text-2xl font-extrabold tracking-tight italic">Sérum Anti-Repousse</h1>
                     <p class="mt-3 text-slate-600 text-sm leading-relaxed">
-                        Élimine l'aspect "peau de fraise" et réduit drastiquement la repousse. Le <b>sérum DivaSkin</b> affaiblit le follicule pileux pour une peau lisse, sans poils incarnés ni irritations post-rasage.
+                        Dites adieu à la "peau de fraise". Le <b>sérum DivaSkin</b> agit directement sur le <b>bulbe du poil</b> pour ralentir la repousse et lisser le grain de peau après le rasage ou l'épilation.
                     </p>
                 </div>
 
@@ -92,7 +88,7 @@
                         </div>
                     </div>
                     <div onclick="selectOffer(2, 49.90, 'Pack 3 Flacons (2+1 Offert)')" id="off-2" class="offer-card active p-4 rounded-xl cursor-pointer relative">
-                        <span class="absolute -top-2.5 right-4 bg-diva text-white text-[8px] px-2 py-0.5 rounded-full font-bold uppercase">Meilleur résultat</span>
+                        <span class="absolute -top-2.5 right-4 bg-diva text-white text-[8px] px-2 py-0.5 rounded-full font-bold uppercase tracking-tighter">Plus populaire</span>
                         <div class="flex justify-between items-center font-bold">
                             <span class="text-diva text-xs">3 FLACONS (2+1 OFFERT)</span>
                             <span class="text-diva text-base">49.90€</span>
@@ -107,85 +103,73 @@
                 </div>
 
                 <div class="space-y-4">
-                    <button onclick="addToCart()" class="w-full bg-slate-900 text-white py-5 rounded-xl font-bold text-lg shadow-xl active:scale-95 transition-transform">
-                        AJOUTER AU PANIER
+                    <button onclick="addToCart()" class="w-full bg-slate-900 text-white py-5 rounded-xl font-bold text-lg shadow-xl active:scale-95 transition-transform uppercase tracking-tight">
+                        Ajouter au panier
                     </button>
                     
-                    <div class="flex items-center justify-center gap-2 text-[11px] font-bold text-slate-500 uppercase tracking-tighter">
-                        <svg class="w-4 h-4 text-diva" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                        Livraison Standard : 7-10 jours
+                    <div class="flex flex-col items-center gap-2 text-[11px] font-bold text-slate-400 uppercase tracking-tighter">
+                        <div class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            Livraison Standard : 7-10 jours
+                        </div>
                     </div>
                 </div>
 
-                <div class="flex justify-between items-center p-4 bg-white/50 border border-white rounded-2xl">
-                    <div class="text-center">
-                        <p class="text-[14px]">🔒</p>
-                        <p class="text-[8px] font-bold text-slate-400 uppercase">Sécurisé</p>
-                    </div>
-                    <div class="text-center">
-                        <p class="text-[14px]">🌿</p>
-                        <p class="text-[8px] font-bold text-slate-400 uppercase">100% Naturel</p>
-                    </div>
-                    <div class="text-center">
-                        <p class="text-[14px]">🇫🇷</p>
-                        <p class="text-[8px] font-bold text-slate-400 uppercase">Stock France</p>
-                    </div>
-                    <div class="text-center">
-                        <p class="text-[14px]">✅</p>
-                        <p class="text-[8px] font-bold text-slate-400 uppercase">Garantie 30j</p>
-                    </div>
+                <div class="flex justify-between items-center p-4 bg-white/50 border border-white rounded-2xl grayscale opacity-70">
+                    <div class="text-center"><p class="text-[8px] font-bold uppercase">🔐 Sécurisé</p></div>
+                    <div class="text-center"><p class="text-[8px] font-bold uppercase">🌿 Naturel</p></div>
+                    <div class="text-center"><p class="text-[8px] font-bold uppercase">📦 Expédié sous 48h</p></div>
                 </div>
             </div>
         </div>
 
         <section class="mt-12 py-10 px-6 bg-white/40 border border-white rounded-[32px]">
-            <h2 class="text-lg font-extrabold text-center mb-8 uppercase italic tracking-tighter">Guide d'utilisation</h2>
+            <h2 class="text-lg font-extrabold text-center mb-8 uppercase italic">Conseils d'utilisation</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
                 <div class="space-y-1">
                     <p class="font-bold text-[10px] uppercase text-diva">01. Chaleur</p>
-                    <p class="text-slate-500 text-xs">Utilisez une serviette chaude pour ouvrir les pores de la zone souhaitée.</p>
+                    <p class="text-slate-500 text-xs">Appliquez une serviette chaude pour ouvrir les pores.</p>
                 </div>
                 <div class="space-y-1 border-y md:border-y-0 md:border-x border-slate-100 py-4 md:py-0 md:px-6">
                     <p class="font-bold text-[10px] uppercase text-diva">02. Massage</p>
-                    <p class="text-slate-500 text-xs">Appliquez le sérum et massez 2 à 3 minutes pour qu'il atteigne le bulbe.</p>
+                    <p class="text-slate-500 text-xs">Massez le sérum 2-3 min pour bien atteindre la racine.</p>
                 </div>
                 <div class="space-y-1">
-                    <p class="font-bold text-[10px] uppercase text-diva">03. Fréquence</p>
-                    <p class="text-slate-500 text-xs">À appliquer 2 à 3 fois par semaine pour stopper la repousse.</p>
+                    <p class="font-bold text-[10px] uppercase text-diva">03. Routine</p>
+                    <p class="text-slate-500 text-xs">2 à 3 fois par semaine pour des résultats visibles.</p>
                 </div>
             </div>
         </section>
 
         <section class="mt-16">
-            <h2 class="text-xl font-extrabold mb-8 text-center uppercase tracking-tighter italic">L'avis de nos clientes</h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-3" id="reviews-container">
-                </div>
+            <h2 class="text-xl font-extrabold mb-8 text-center uppercase tracking-tighter italic">Elles l'utilisent déjà</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-3" id="reviews-container"></div>
         </section>
     </main>
 
-    <footer class="py-10 text-center border-t border-slate-200 opacity-50">
-        <p class="text-[9px] font-bold uppercase tracking-[0.4em]">DivaSkin International © 2026</p>
+    <footer class="py-10 text-center border-t border-slate-200 opacity-40">
+        <p class="text-[8px] font-bold uppercase tracking-[0.4em]">DivaSkin™ — Tous droits réservés</p>
     </footer>
 
     <div class="sticky-btn lg:hidden">
         <div class="flex-grow">
             <p id="sticky-price" class="text-lg font-black text-diva leading-none">49.90€</p>
-            <p id="sticky-name" class="text-[8px] font-bold text-slate-400 uppercase tracking-widest">3 Flacons (Conseillé)</p>
+            <p id="sticky-name" class="text-[7px] font-bold text-slate-400 uppercase">3 Flacons (Populaire)</p>
         </div>
-        <button onclick="addToCart()" class="bg-slate-900 text-white px-8 py-4 rounded-xl font-bold text-sm shadow-lg active:scale-95 transition-transform">
+        <button onclick="addToCart()" class="bg-slate-900 text-white px-8 py-4 rounded-xl font-bold text-sm">
             COMMANDER
         </button>
     </div>
 
     <div id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-[320px] bg-white z-[60] shadow-2xl flex flex-col">
         <div class="p-6 border-b flex justify-between items-center">
-            <h2 class="font-bold text-xs uppercase tracking-widest">Mon Panier</h2>
+            <h2 class="font-bold text-xs uppercase">Panier</h2>
             <button onclick="toggleCart()" class="text-[10px] font-bold text-slate-300">FERMER</button>
         </div>
         <div id="cart-content" class="flex-grow p-6 space-y-4 overflow-y-auto"></div>
         <div class="p-6 border-t space-y-4 bg-slate-50">
             <div class="flex justify-between font-bold text-sm"><span>Total</span><span id="cart-total">0.00€</span></div>
-            <button class="w-full bg-diva text-white py-4 rounded-xl font-bold">FINALISER MA COMMANDE</button>
+            <button class="w-full bg-diva text-white py-4 rounded-xl font-bold uppercase text-xs">Finaliser ma commande</button>
         </div>
     </div>
 
@@ -197,10 +181,8 @@
             selection = { name, price };
             document.querySelectorAll('.offer-card').forEach(el => el.classList.remove('active'));
             document.getElementById('off-' + id).classList.add('active');
-            
-            // Mise à jour du bouton sticky
             document.getElementById('sticky-price').innerText = price.toFixed(2) + "€";
-            document.getElementById('sticky-name').innerText = name;
+            document.getElementById('sticky-name').innerText = name.split(' (')[0];
         }
 
         function toggleCart() { document.body.classList.toggle('cart-open'); }
@@ -217,7 +199,7 @@
             const badge = document.getElementById('cart-badge');
             list.innerHTML = cart.map((item, i) => `
                 <div class="flex justify-between items-center border-b border-slate-100 pb-3">
-                    <div class="text-[10px] font-extrabold uppercase leading-tight max-w-[150px]">${item.name}</div>
+                    <div class="text-[10px] font-extrabold uppercase leading-tight">${item.name}</div>
                     <div class="text-diva font-bold text-xs">${item.price}€</div>
                 </div>
             `).join('');
@@ -227,41 +209,41 @@
         }
 
         const reviews = [
-            { name: "Léa M.", stars: 5, text: "Enfin un produit qui marche sur mes poils incarnés au maillot. Je revis." },
-            { name: "Manon B.", stars: 5 },
-            { name: "Clara G.", stars: 5, text: "Reçu en 9 jours. La texture est top et ma peau est vraiment plus lisse." },
-            { name: "Sophie P.", stars: 4 },
-            { name: "Amandine L.", stars: 5, text: "Utilisé sur le visage après l'épilation, plus aucune rougeur." },
-            { name: "Julie D.", stars: 5 },
-            { name: "Inès R.", stars: 5, text: "La repousse est beaucoup plus lente après seulement 3 semaines." },
-            { name: "Camille W.", stars: 5 },
-            { name: "Sarah V.", stars: 4, text: "Très satisfaite de la qualité du sérum." },
-            { name: "Emma S.", stars: 5 },
-            { name: "Chloé F.", stars: 5, text: "J'ai pris le pack de 3, c'est le meilleur rapport qualité prix." },
-            { name: "Marine T.", stars: 5 },
-            { name: "Laura J.", stars: 5, text: "Fini la peau de fraise sur les jambes, merci !" },
-            { name: "Océane B.", stars: 5 },
-            { name: "Lucie N.", stars: 4 },
-            { name: "Mathilde E.", stars: 5, text: "Sérum très efficace et naturel." },
-            { name: "Alice K.", stars: 5 },
-            { name: "Zoé G.", stars: 5, text: "Les poils repoussent beaucoup plus fins et clairs." },
-            { name: "Jade L.", stars: 5 },
-            { name: "Mélanie P.", stars: 5, text: "Je l'ai recommandé à toutes mes amies." },
-            { name: "Célia H.", stars: 4 },
-            { name: "Eva B.", stars: 5 },
-            { name: "Margaux D.", stars: 5, text: "Ma routine post-épilation indispensable maintenant." },
-            { name: "Pauline A.", stars: 5 },
-            { name: "Noémie C.", stars: 5, text: "Génial sur les zones sensibles." },
-            { name: "Lola M.", stars: 4 },
-            { name: "Fanny R.", stars: 5 },
-            { name: "Elisa S.", stars: 5, text: "Très bon produit, conforme à la description." },
-            { name: "Justine V.", stars: 5 },
-            { name: "Clémence B.", stars: 5, text: "Super contente de mon achat." }
+            { name: "Léa.M", stars: 5, text: "Franchement bluffée, mes poils au maillot repoussent bcp moins vite. J'en reprendrai." },
+            { name: "Sarah_92", stars: 5, text: "Colis un peu long à arriver (10j) mais le produit est top, fini les boutons rouges." },
+            { name: "Manon B.", stars: 4 },
+            { name: "Clara_G", stars: 5, text: "Plus de peau de fraise sur les jambes !! Enfin un truc qui marche." },
+            { name: "Mélissa", stars: 5, text: "L'odeur est neutre c'est niquel. Par contre le flacon est un peu petit je trouve." },
+            { name: "Julie", stars: 5 },
+            { name: "Inès R.", stars: 5, text: "Top pour les zones sensibles. Je l'utilise après l'épilateur." },
+            { name: "Camille", stars: 5 },
+            { name: "Emma_S", stars: 4, text: "Bien emballé. À voir sur le long terme mais déjà moins de poils incarnés." },
+            { name: "Chloé", stars: 5 },
+            { name: "Marine_T", stars: 5, text: "Le pack 3 flacons vaut grave le coup. Service client sympa." },
+            { name: "Océane", stars: 5 },
+            { name: "Lucie_75", stars: 5, text: "J'avais peur que ça soit gras mais pas du tout. Peau super douce." },
+            { name: "Mathilde", stars: 5 },
+            { name: "Zoé G.", stars: 4, text: "Fait le job, ma repousse est plus fine." },
+            { name: "Jade", stars: 5 },
+            { name: "Mélanie", stars: 5 },
+            { name: "Eva_B", stars: 5, text: "Parfait pour le visage aussi, pas de réactions." },
+            { name: "Margaux", stars: 5 },
+            { name: "Noémie", stars: 5, text: "Livraison ok, produit conforme. Je valide." },
+            { name: "Fanny", stars: 4 },
+            { name: "Elisa", stars: 5, text: "Mes jambes revivent, fini les poils qui piquent direct." },
+            { name: "Justine", stars: 5 },
+            { name: "Clémence", stars: 5 },
+            { name: "Amandine", stars: 5 },
+            { name: "Sonia_K", stars: 5, text: "Vraiment efficace sur les poils drus." },
+            { name: "Lola", stars: 5 },
+            { name: "Pauline", stars: 4 },
+            { name: "Célia", stars: 5, text: "Excellent rapport qualité prix avec la promo." },
+            { name: "Sandra", stars: 5 }
         ];
 
         const container = document.getElementById('reviews-container');
         container.innerHTML = reviews.map(r => `
-            <div class="bg-white p-4 rounded-2xl border border-slate-50 shadow-sm flex flex-col justify-center min-h-[90px]">
+            <div class="bg-white p-4 rounded-2xl border border-slate-50 shadow-sm flex flex-col justify-center min-h-[80px]">
                 <div class="text-yellow-400 text-[8px] mb-1">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div>
                 ${r.text ? `<p class="text-[11px] font-medium text-slate-600 leading-tight mb-2 italic">"${r.text}"</p>` : ''}
                 <p class="text-[9px] font-bold text-slate-300 uppercase">${r.name}</p>
