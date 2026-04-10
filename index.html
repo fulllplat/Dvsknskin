@@ -5,30 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>DivaSkin™ | Sérum Anti-Repousse</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
             background: linear-gradient(135deg, #fdfcfd 0%, #f3f0ff 100%);
             color: #1a1a1a;
-            min-height: 100vh;
         }
-        .bg-diva { background-color: #7B4AEE; }
         .text-diva { color: #7B4AEE; }
+        .bg-diva { background-color: #7B4AEE; }
         
-        /* Animation de sélection "Pop" */
         .offer-card { 
             transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            border: 2px solid #e5e7eb;
+            border: 2px solid #ececf0;
             background: white;
         }
         .offer-card.active { 
             border-color: #7B4AEE; 
-            transform: scale(1.03);
-            box-shadow: 0 12px 24px rgba(123, 74, 238, 0.15);
+            transform: scale(1.02);
+            box-shadow: 0 10px 20px rgba(123, 74, 238, 0.1);
         }
 
-        /* Panier slide */
         #cart-drawer { transform: translateX(100%); transition: transform 0.4s ease; }
         .cart-open #cart-drawer { transform: translateX(0); }
         .overlay { display: none; background: rgba(0,0,0,0.3); backdrop-filter: blur(4px); z-index: 50; }
@@ -39,144 +36,120 @@
 
     <div class="overlay fixed inset-0" onclick="toggleCart()"></div>
 
-    <div class="bg-diva text-white text-[10px] font-bold py-2.5 text-center uppercase tracking-[0.15em]">
+    <div class="bg-diva text-white text-[10px] font-bold py-2 text-center uppercase tracking-widest">
         LIVRAISON OFFERTE AUJOURD'HUI
     </div>
 
     <nav class="sticky top-0 bg-white/80 backdrop-blur-md z-40 border-b border-gray-100">
-        <div class="max-w-7xl mx-auto px-4 h-16 flex justify-between items-center">
-            <div class="text-xl font-black italic tracking-tighter">DIVASKIN</div>
-            <button onclick="toggleCart()" class="relative p-2 active:scale-90 transition-transform">
-                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
-                <span id="cart-badge" class="absolute top-0 right-0 bg-diva text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
+        <div class="max-w-7xl mx-auto px-4 h-14 flex justify-between items-center">
+            <div class="text-xl font-black italic tracking-tighter text-diva">DIVASKIN</div>
+            <button onclick="toggleCart()" class="p-2">
+                <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                <span id="cart-badge" class="absolute top-1 right-1 bg-diva text-white text-[8px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
             </button>
         </div>
     </nav>
 
-    <main class="max-w-5xl mx-auto px-4 lg:px-6 py-6">
+    <main class="max-w-5xl mx-auto px-4 py-4">
         
-        <div class="grid lg:grid-cols-2 gap-8 items-start">
+        <div class="grid lg:grid-cols-2 gap-6">
             <div class="space-y-4">
-                <img src="produit.png.WEBP" class="w-full aspect-square object-cover rounded-[32px] shadow-sm" alt="DivaSkin">
-                <div class="grid grid-cols-2 gap-4">
-                    <img src="points.png.PNG" class="rounded-2xl border border-white/50 shadow-sm" alt="Efficacité">
-                    <img src="joue.png.PNG" class="rounded-2xl border border-white/50 shadow-sm" alt="Texture">
-                </div>
+                <img src="produit.png.WEBP" class="w-full aspect-square object-cover rounded-[24px] shadow-sm" alt="DivaSkin">
+                <img src="points.png.PNG" class="w-full rounded-2xl border border-white/50 shadow-sm" alt="Efficacité">
             </div>
 
-            <div class="space-y-8">
+            <div class="space-y-6">
                 <div>
-                    <h1 class="text-3xl font-extrabold tracking-tight mb-2">Sérum Anti-Repousse</h1>
-                    <div class="flex items-center gap-1.5 text-yellow-400 text-xs font-bold">
-                        ★★★★★ <span class="text-slate-400 ml-1">4.8 (1,248 avis)</span>
-                    </div>
-                    <p class="mt-4 text-slate-500 text-sm leading-relaxed">
-                        Formule naturelle aux extraits de Cyperus Rotundus. Ralentit la repousse du poil et purifie la peau sans laisser de fini gras.
+                    <div class="flex items-center gap-1 text-yellow-400 text-[10px] mb-1">★★★★★ <span class="text-slate-400 ml-1">4.8 (1,248 avis)</span></div>
+                    <h1 class="text-2xl font-extrabold tracking-tight">Sérum Anti-Repousse</h1>
+                    <p class="mt-2 text-slate-500 text-sm leading-relaxed">
+                        Ralentissez la repousse du poil à la racine. Une texture fluide qui <b>sèche instantanément</b> et ne tache pas vos vêtements.
                     </p>
                 </div>
 
-                <div class="space-y-3">
-                    <div onclick="selectOffer(1, 29.90, '1 Flacon')" id="off-1" class="offer-card p-5 rounded-2xl cursor-pointer">
-                        <div class="flex justify-between items-center font-bold text-sm">
-                            <span>1 FLACON</span>
+                <div class="space-y-2">
+                    <div onclick="selectOffer(1, 29.90, '1 Flacon')" id="off-1" class="offer-card p-4 rounded-xl cursor-pointer">
+                        <div class="flex justify-between items-center font-bold text-xs uppercase">
+                            <span>1 Flacon</span>
                             <span>29.90€</span>
                         </div>
                     </div>
-                    <div onclick="selectOffer(2, 49.90, 'Pack 3 Flacons (2+1 Offert)')" id="off-2" class="offer-card active p-5 rounded-2xl cursor-pointer relative">
-                        <span class="absolute -top-2.5 right-4 bg-diva text-white text-[8px] px-2 py-0.5 rounded-full font-bold">RECOMMANDÉ</span>
+                    <div onclick="selectOffer(2, 49.90, '3 Flacons (2+1 Offert)')" id="off-2" class="offer-card active p-4 rounded-xl cursor-pointer relative">
+                        <span class="absolute -top-2 right-4 bg-diva text-white text-[8px] px-2 py-0.5 rounded-full font-bold">CONSEILLÉ</span>
                         <div class="flex justify-between items-center font-bold">
-                            <span class="text-diva text-sm">3 FLACONS (2+1 OFFERT)</span>
-                            <span class="text-diva text-lg">49.90€</span>
+                            <span class="text-diva text-xs uppercase">3 Flacons (2+1 Offert)</span>
+                            <span class="text-diva text-base">49.90€</span>
                         </div>
                     </div>
-                    <div onclick="selectOffer(3, 74.90, 'Pack 5 Flacons (3+2 Offerts)')" id="off-3" class="offer-card p-5 rounded-2xl cursor-pointer">
-                        <div class="flex justify-between items-center font-bold text-sm text-slate-400">
-                            <span>5 FLACONS (3+2 OFFERTS)</span>
+                    <div onclick="selectOffer(3, 74.90, '5 Flacons (3+2 Offerts)')" id="off-3" class="offer-card p-4 rounded-xl cursor-pointer">
+                        <div class="flex justify-between items-center font-bold text-xs uppercase">
+                            <span>5 Flacons (3+2 Offerts)</span>
                             <span>74.90€</span>
                         </div>
                     </div>
                 </div>
 
-                <button onclick="addToCart()" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-bold text-lg shadow-xl active:scale-95 transition-transform">
+                <button onclick="addToCart()" class="w-full bg-slate-900 text-white py-4 rounded-xl font-bold text-base shadow-lg active:scale-95 transition-transform">
                     AJOUTER AU PANIER
                 </button>
 
-                <div class="grid grid-cols-2 gap-4 border-t pt-6">
-                    <div class="text-[10px] font-bold text-slate-400 flex items-center gap-2 uppercase tracking-widest">
-                        <div class="w-1.5 h-1.5 rounded-full bg-green-500"></div> Pénètre sans coller
+                <div class="grid grid-cols-2 gap-4 py-4 border-t border-slate-200">
+                    <div class="text-[9px] font-bold text-slate-400 flex items-center gap-2 uppercase tracking-tighter">
+                        <svg class="w-3 h-3 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg> 
+                        Fini invisible
                     </div>
-                    <div class="text-[10px] font-bold text-slate-400 flex items-center gap-2 uppercase tracking-widest">
-                        <div class="w-1.5 h-1.5 rounded-full bg-green-500"></div> Visage & Corps
+                    <div class="text-[9px] font-bold text-slate-400 flex items-center gap-2 uppercase tracking-tighter">
+                        <svg class="w-3 h-3 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+                        Efficace Visage/Corps
                     </div>
                 </div>
             </div>
         </div>
 
-        <section class="mt-20 py-12 px-6 bg-white/40 border border-white rounded-[40px]">
-            <h2 class="text-xl font-extrabold text-center mb-10">Rituel d'utilisation</h2>
-            <div class="grid md:grid-cols-3 gap-8 text-sm">
-                <div class="text-center space-y-2">
-                    <div class="w-8 h-8 bg-diva/10 text-diva rounded-full flex items-center justify-center mx-auto font-bold">1</div>
-                    <p class="font-bold uppercase text-[10px]">Préparer</p>
-                    <p class="text-slate-500">Appliquez une serviette chaude 3 min pour ouvrir les pores.</p>
+        <section class="mt-12 py-10 px-6 bg-white/40 border border-white rounded-[32px]">
+            <h2 class="text-lg font-extrabold text-center mb-8 uppercase tracking-tighter italic">Application</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+                <div class="space-y-1">
+                    <p class="font-bold text-[10px] uppercase text-diva">01. Préparer</p>
+                    <p class="text-slate-500 text-xs">Appliquez une serviette chaude 3 min sur la zone.</p>
                 </div>
-                <div class="text-center space-y-2">
-                    <div class="w-8 h-8 bg-diva/10 text-diva rounded-full flex items-center justify-center mx-auto font-bold">2</div>
-                    <p class="font-bold uppercase text-[10px]">Masser</p>
-                    <p class="text-slate-500">Massez l'essence 2 à 3 min jusqu'à absorption complète.</p>
+                <div class="space-y-1 border-y md:border-y-0 md:border-x border-slate-100 py-4 md:py-0 md:px-6">
+                    <p class="font-bold text-[10px] uppercase text-diva">02. Appliquer</p>
+                    <p class="text-slate-500 text-xs">Massez le <b>sérum</b> 2 à 3 min jusqu'à absorption complète.</p>
                 </div>
-                <div class="text-center space-y-2">
-                    <div class="w-8 h-8 bg-diva/10 text-diva rounded-full flex items-center justify-center mx-auto font-bold">3</div>
-                    <p class="font-bold uppercase text-[10px]">Maintenir</p>
-                    <p class="text-slate-500">Répétez 2 à 3 fois par semaine pour affiner le poil.</p>
+                <div class="space-y-1">
+                    <p class="font-bold text-[10px] uppercase text-diva">03. Fréquence</p>
+                    <p class="text-slate-500 text-xs">À utiliser 2 à 3 fois par semaine pour des résultats durables.</p>
                 </div>
             </div>
         </section>
 
-        <section class="mt-20 pb-10">
-            <h2 class="text-xl font-extrabold mb-10 text-center uppercase tracking-tighter italic">Avis de nos clientes</h2>
-            <div class="grid md:grid-cols-3 gap-4">
-                <div class="bg-white p-6 rounded-3xl shadow-sm space-y-3 border border-slate-50">
-                    <div class="flex text-yellow-400 text-[10px]">★★★★★</div>
-                    <p class="text-xs font-medium text-slate-600">"Texture très légère, on peut s'habiller direct après. Mes jambes sont beaucoup plus douces."</p>
-                    <p class="text-[9px] font-bold text-slate-300 uppercase">Léa V.</p>
+        <section class="mt-16">
+            <h2 class="text-xl font-extrabold mb-8 text-center">Ce qu'en disent nos clientes</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-3" id="reviews-container">
                 </div>
-                <div class="bg-white p-6 rounded-3xl shadow-sm flex flex-col items-center justify-center border border-slate-50">
-                    <div class="flex text-yellow-400 text-[10px] mb-1">★★★★★</div>
-                    <p class="text-[9px] font-bold text-slate-300 uppercase tracking-widest">Sophie M.</p>
-                </div>
-                <div class="bg-white p-6 rounded-3xl shadow-sm space-y-3 border border-slate-50">
-                    <div class="flex text-yellow-400 text-[10px]">★★★★★</div>
-                    <p class="text-xs font-medium text-slate-600">"Je l'utilise sur le visage après l'épilation, aucune irritation. Je recommande."</p>
-                    <p class="text-[9px] font-bold text-slate-300 uppercase">Amandine L.</p>
-                </div>
-                <div class="bg-white p-6 rounded-3xl shadow-sm flex flex-col items-center justify-center border border-slate-50">
-                    <div class="flex text-yellow-400 text-[10px] mb-1">★★★★☆</div>
-                    <p class="text-[9px] font-bold text-slate-300 uppercase tracking-widest">Julie K.</p>
-                </div>
-            </div>
         </section>
     </main>
 
-    <footer class="py-12 text-center border-t border-slate-200">
-        <div class="text-sm font-black italic mb-4">DIVASKIN</div>
-        <p class="text-[9px] text-slate-400 uppercase tracking-[0.3em]">© 2026 • Livraison 7-10 jours</p>
+    <footer class="py-12 text-center border-t border-slate-200 mt-10">
+        <div class="text-lg font-black italic mb-2 text-diva">DIVASKIN</div>
+        <p class="text-[9px] text-slate-400 uppercase tracking-[0.3em]">Livraison Standard : 7-10 jours</p>
     </footer>
 
     <div id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-[320px] bg-white z-[60] shadow-2xl flex flex-col">
         <div class="p-6 border-b flex justify-between items-center">
-            <h2 class="font-bold text-xs uppercase tracking-widest">Mon Panier</h2>
-            <button onclick="toggleCart()" class="text-[10px] font-bold text-slate-300 uppercase">Fermer</button>
+            <h2 class="font-bold text-xs uppercase tracking-widest">Panier</h2>
+            <button onclick="toggleCart()" class="text-[10px] font-bold text-slate-300">FERMER</button>
         </div>
-        <div id="cart-content" class="flex-grow p-6 space-y-4"></div>
+        <div id="cart-content" class="flex-grow p-6 space-y-4 overflow-y-auto"></div>
         <div class="p-6 border-t space-y-4 bg-slate-50">
             <div class="flex justify-between font-bold text-sm"><span>Total</span><span id="cart-total">0.00€</span></div>
-            <button class="w-full bg-diva text-white py-4 rounded-xl font-bold active:scale-95 transition-transform">COMMANDER</button>
+            <button class="w-full bg-diva text-white py-4 rounded-xl font-bold">COMMANDER</button>
         </div>
     </div>
 
     <script>
-        let selection = { name: 'Pack 3 Flacons (2+1 Offert)', price: 49.90 };
+        let selection = { name: '3 Flacons (2+1 Offert)', price: 49.90 };
         let cart = [];
 
         function selectOffer(id, price, name) {
@@ -197,25 +170,59 @@
             const list = document.getElementById('cart-content');
             const total = document.getElementById('cart-total');
             const badge = document.getElementById('cart-badge');
-            
-            if(cart.length === 0) {
-                list.innerHTML = '<p class="text-center text-slate-300 text-xs py-10">Votre panier est vide</p>';
-                total.innerText = "0.00€";
-                badge.innerText = "0";
-                return;
-            }
-
             list.innerHTML = cart.map((item, i) => `
-                <div class="flex justify-between items-center bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
-                    <div class="text-[10px] font-bold uppercase leading-tight">${item.name}</div>
+                <div class="flex justify-between items-center border-b pb-2">
+                    <div class="text-[10px] font-bold uppercase">${item.name}</div>
                     <div class="text-diva font-bold text-xs">${item.price}€</div>
                 </div>
             `).join('');
-
             const sum = cart.reduce((a, b) => a + b.price, 0);
             total.innerText = sum.toFixed(2) + "€";
             badge.innerText = cart.length;
         }
+
+        // GÉNÉRATION DE 30 AVIS CRÉDIBLES
+        const reviews = [
+            { name: "Léa M.", stars: 5, text: "Franchement top, l'odeur est discrète et ça ne colle pas du tout." },
+            { name: "Manon B.", stars: 5 },
+            { name: "Clara G.", stars: 5, text: "Livraison reçue en 8 jours. Produit conforme, la peau est très douce." },
+            { name: "Sophie P.", stars: 4 },
+            { name: "Amandine L.", stars: 5, text: "Je l'utilise sur le visage, aucune réaction. Très bon sérum." },
+            { name: "Julie D.", stars: 5 },
+            { name: "Inès R.", stars: 5, text: "Sèche super vite, pratique le matin." },
+            { name: "Camille W.", stars: 5 },
+            { name: "Sarah V.", stars: 4, text: "Bien emballé. À voir sur la repousse avec le temps." },
+            { name: "Emma S.", stars: 5 },
+            { name: "Chloé F.", stars: 5, text: "Le pack de 3 est vraiment rentable." },
+            { name: "Marine T.", stars: 5 },
+            { name: "Laura J.", stars: 5, text: "Enfin un produit qui n'irrite pas après le rasage." },
+            { name: "Océane B.", stars: 5 },
+            { name: "Lucie N.", stars: 4 },
+            { name: "Mathilde E.", stars: 5, text: "Texture fluide très agréable." },
+            { name: "Alice K.", stars: 5 },
+            { name: "Zoé G.", stars: 5, text: "Je valide à 100%, mes poils repoussent plus fins." },
+            { name: "Jade L.", stars: 5 },
+            { name: "Mélanie P.", stars: 5, text: "Rapport qualité prix imbattable sur le pack 5." },
+            { name: "Célia H.", stars: 4 },
+            { name: "Eva B.", stars: 5 },
+            { name: "Margaux D.", stars: 5, text: "Super pour les peaux sensibles." },
+            { name: "Pauline A.", stars: 5 },
+            { name: "Noémie C.", stars: 5, text: "Adopté dans ma routine !" },
+            { name: "Lola M.", stars: 4 },
+            { name: "Fanny R.", stars: 5 },
+            { name: "Elisa S.", stars: 5, text: "Le service client a répondu très vite à ma question." },
+            { name: "Justine V.", stars: 5 },
+            { name: "Clémence B.", stars: 5, text: "Rien à dire, c'est nickel." }
+        ];
+
+        const container = document.getElementById('reviews-container');
+        container.innerHTML = reviews.map(r => `
+            <div class="bg-white p-4 rounded-2xl border border-slate-50 shadow-sm flex flex-col justify-center min-h-[100px]">
+                <div class="text-yellow-400 text-[8px] mb-1">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div>
+                ${r.text ? `<p class="text-[11px] font-medium text-slate-600 leading-tight mb-2">"${r.text}"</p>` : ''}
+                <p class="text-[9px] font-bold text-slate-300 uppercase">${r.name}</p>
+            </div>
+        `).join('');
     </script>
 </body>
 </html>
