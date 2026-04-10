@@ -76,7 +76,7 @@
                     <div class="flex items-center gap-1 text-yellow-400 text-[10px] mb-1">★★★★★ <span class="text-slate-400 ml-1">4.8 (1,248 avis)</span></div>
                     <h1 class="text-2xl font-extrabold tracking-tight italic">Sérum Anti-Repousse</h1>
                     <p class="mt-3 text-slate-600 text-sm leading-relaxed">
-                        Dites adieu à la "peau de fraise". Le <b>sérum DivaSkin</b> agit directement sur le <b>bulbe du poil</b> pour ralentir la repousse et lisser le grain de peau après le rasage ou l'épilation.
+                        Formulé à base d'huile de <b>Cyperus Rotundus</b> pure, ce sérum ralentit naturellement la repousse après chaque épilation. Il apaise la zone traitée et laisse votre peau parfaitement lisse et hydratée.
                     </p>
                 </div>
 
@@ -88,7 +88,7 @@
                         </div>
                     </div>
                     <div onclick="selectOffer(2, 49.90, 'Pack 3 Flacons (2+1 Offert)')" id="off-2" class="offer-card active p-4 rounded-xl cursor-pointer relative">
-                        <span class="absolute -top-2.5 right-4 bg-diva text-white text-[8px] px-2 py-0.5 rounded-full font-bold uppercase tracking-tighter">Plus populaire</span>
+                        <span class="absolute -top-2.5 right-4 bg-diva text-white text-[8px] px-2 py-0.5 rounded-full font-bold uppercase tracking-tighter text-xs">Plus populaire</span>
                         <div class="flex justify-between items-center font-bold">
                             <span class="text-diva text-xs">3 FLACONS (2+1 OFFERT)</span>
                             <span class="text-diva text-base">49.90€</span>
@@ -116,33 +116,33 @@
                 </div>
 
                 <div class="flex justify-between items-center p-4 bg-white/50 border border-white rounded-2xl grayscale opacity-70">
-                    <div class="text-center"><p class="text-[8px] font-bold uppercase">🔐 Sécurisé</p></div>
-                    <div class="text-center"><p class="text-[8px] font-bold uppercase">🌿 Naturel</p></div>
-                    <div class="text-center"><p class="text-[8px] font-bold uppercase">📦 Expédié sous 48h</p></div>
+                    <div class="text-center"><p class="text-[8px] font-bold uppercase tracking-widest">🔐 Sécurisé</p></div>
+                    <div class="text-center"><p class="text-[8px] font-bold uppercase tracking-widest">🌿 Cyperus Pur</p></div>
+                    <div class="text-center"><p class="text-[8px] font-bold uppercase tracking-widest">📦 Expédié 48h</p></div>
                 </div>
             </div>
         </div>
 
         <section class="mt-12 py-10 px-6 bg-white/40 border border-white rounded-[32px]">
-            <h2 class="text-lg font-extrabold text-center mb-8 uppercase italic">Conseils d'utilisation</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+            <h2 class="text-lg font-extrabold text-center mb-8 uppercase italic">Mode d'emploi</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-center">
                 <div class="space-y-1">
-                    <p class="font-bold text-[10px] uppercase text-diva">01. Chaleur</p>
-                    <p class="text-slate-500 text-xs">Appliquez une serviette chaude pour ouvrir les pores.</p>
+                    <p class="font-bold text-[10px] uppercase text-diva">01. Préparer</p>
+                    <p class="text-slate-500 text-xs">Appliquez après votre rasage ou épilation habituelle.</p>
                 </div>
                 <div class="space-y-1 border-y md:border-y-0 md:border-x border-slate-100 py-4 md:py-0 md:px-6">
-                    <p class="font-bold text-[10px] uppercase text-diva">02. Massage</p>
-                    <p class="text-slate-500 text-xs">Massez le sérum 2-3 min pour bien atteindre la racine.</p>
+                    <p class="font-bold text-[10px] uppercase text-diva">02. Appliquer</p>
+                    <p class="text-slate-500 text-xs">Massez quelques gouttes de sérum sur la zone souhaitée.</p>
                 </div>
                 <div class="space-y-1">
                     <p class="font-bold text-[10px] uppercase text-diva">03. Routine</p>
-                    <p class="text-slate-500 text-xs">2 à 3 fois par semaine pour des résultats visibles.</p>
+                    <p class="text-slate-500 text-xs">Utilisez 2 à 3 fois par semaine pour un résultat optimal.</p>
                 </div>
             </div>
         </section>
 
         <section class="mt-16">
-            <h2 class="text-xl font-extrabold mb-8 text-center uppercase tracking-tighter italic">Elles l'utilisent déjà</h2>
+            <h2 class="text-xl font-extrabold mb-8 text-center uppercase tracking-tighter italic">Vos retours</h2>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-3" id="reviews-container"></div>
         </section>
     </main>
@@ -154,7 +154,7 @@
     <div class="sticky-btn lg:hidden">
         <div class="flex-grow">
             <p id="sticky-price" class="text-lg font-black text-diva leading-none">49.90€</p>
-            <p id="sticky-name" class="text-[7px] font-bold text-slate-400 uppercase">3 Flacons (Populaire)</p>
+            <p id="sticky-name" class="text-[7px] font-bold text-slate-400 uppercase tracking-widest italic">3 Flacons (Offre)</p>
         </div>
         <button onclick="addToCart()" class="bg-slate-900 text-white px-8 py-4 rounded-xl font-bold text-sm">
             COMMANDER
@@ -169,7 +169,7 @@
         <div id="cart-content" class="flex-grow p-6 space-y-4 overflow-y-auto"></div>
         <div class="p-6 border-t space-y-4 bg-slate-50">
             <div class="flex justify-between font-bold text-sm"><span>Total</span><span id="cart-total">0.00€</span></div>
-            <button class="w-full bg-diva text-white py-4 rounded-xl font-bold uppercase text-xs">Finaliser ma commande</button>
+            <button class="w-full bg-diva text-white py-4 rounded-xl font-bold uppercase text-xs">Paiement sécurisé</button>
         </div>
     </div>
 
@@ -209,36 +209,36 @@
         }
 
         const reviews = [
-            { name: "Léa.M", stars: 5, text: "Franchement bluffée, mes poils au maillot repoussent bcp moins vite. J'en reprendrai." },
-            { name: "Sarah_92", stars: 5, text: "Colis un peu long à arriver (10j) mais le produit est top, fini les boutons rouges." },
-            { name: "Manon B.", stars: 4 },
-            { name: "Clara_G", stars: 5, text: "Plus de peau de fraise sur les jambes !! Enfin un truc qui marche." },
-            { name: "Mélissa", stars: 5, text: "L'odeur est neutre c'est niquel. Par contre le flacon est un peu petit je trouve." },
-            { name: "Julie", stars: 5 },
-            { name: "Inès R.", stars: 5, text: "Top pour les zones sensibles. Je l'utilise après l'épilateur." },
-            { name: "Camille", stars: 5 },
-            { name: "Emma_S", stars: 4, text: "Bien emballé. À voir sur le long terme mais déjà moins de poils incarnés." },
-            { name: "Chloé", stars: 5 },
-            { name: "Marine_T", stars: 5, text: "Le pack 3 flacons vaut grave le coup. Service client sympa." },
-            { name: "Océane", stars: 5 },
-            { name: "Lucie_75", stars: 5, text: "J'avais peur que ça soit gras mais pas du tout. Peau super douce." },
-            { name: "Mathilde", stars: 5 },
-            { name: "Zoé G.", stars: 4, text: "Fait le job, ma repousse est plus fine." },
-            { name: "Jade", stars: 5 },
+            { name: "Léa.M", stars: 5, text: "Grave contente, l'huile de cyperus fait vraiment la diff sur la repousse." },
+            { name: "Sarah_92", stars: 5, text: "Colis reçu en 10 jours. Le produit est top pour calmer le feu du rasoir." },
+            { name: "Manon B.", stars: 4, text: "Pas mal du tout. Faut être assidue par contre pour voir les effets." },
+            { name: "Clara_G", stars: 5, text: "Ma peau est bcp plus lisse, je regrette pas mon achat." },
+            { name: "Mélissa", stars: 5, text: "Texture agréable, l'odeur est légère. Pack de 3 super avantageux." },
+            { name: "Julie.K", stars: 5 },
+            { name: "Inès R.", stars: 5, text: "J'utilise que ça maintenant après l'épilation." },
+            { name: "Camille", stars: 5, text: "Incroyable sur les jambes, les poils reviennent bcp moins drus." },
+            { name: "Emma_S", stars: 4 },
+            { name: "Chloé F.", stars: 5, text: "Service client réactif. Produit de bonne qualité." },
+            { name: "Marine_T", stars: 5 },
+            { name: "Océane", stars: 5, text: "C'est devenu mon indispensable routine." },
+            { name: "Lucie_75", stars: 5 },
+            { name: "Mathilde", stars: 5, text: "Efficace et naturel, c'est ce que je cherchais." },
+            { name: "Zoé G.", stars: 4 },
+            { name: "Jade L.", stars: 5, text: "Foncez les filles, ça change la vie." },
             { name: "Mélanie", stars: 5 },
-            { name: "Eva_B", stars: 5, text: "Parfait pour le visage aussi, pas de réactions." },
+            { name: "Eva_B", stars: 5, text: "Testé sur le maillot, aucune irritation. Je valide." },
             { name: "Margaux", stars: 5 },
-            { name: "Noémie", stars: 5, text: "Livraison ok, produit conforme. Je valide." },
+            { name: "Noémie", stars: 5, text: "Livraison ok, emballage soigné." },
             { name: "Fanny", stars: 4 },
-            { name: "Elisa", stars: 5, text: "Mes jambes revivent, fini les poils qui piquent direct." },
+            { name: "Elisa", stars: 5, text: "Enfin une solution naturelle qui fonctionne." },
             { name: "Justine", stars: 5 },
-            { name: "Clémence", stars: 5 },
+            { name: "Clémence", stars: 5, text: "Je commande pour la 2ème fois." },
             { name: "Amandine", stars: 5 },
-            { name: "Sonia_K", stars: 5, text: "Vraiment efficace sur les poils drus." },
+            { name: "Sonia_K", stars: 5, text: "Satisfaite du résultat après 1 mois." },
             { name: "Lola", stars: 5 },
             { name: "Pauline", stars: 4 },
-            { name: "Célia", stars: 5, text: "Excellent rapport qualité prix avec la promo." },
-            { name: "Sandra", stars: 5 }
+            { name: "Célia", stars: 5 },
+            { name: "Sandra", stars: 5, text: "Génial, j'adore le rendu sur ma peau." }
         ];
 
         const container = document.getElementById('reviews-container');
