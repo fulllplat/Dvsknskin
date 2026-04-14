@@ -3,7 +3,8 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 export default async function handler(req, res) {
   if (req.method === 'POST') {
     try {
-      // Création de la session de paiement Stripe
+      const { price, name } = req.body; 
+
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
         line_items: [
@@ -11,17 +12,16 @@ export default async function handler(req, res) {
             price_data: {
               currency: 'eur',
               product_data: {
-                name: 'Sérum Anti-Repousse DivaSkin',
-                images: ['https://ton-site.vercel.app/image-du-produit.jpg'], // Optionnel : lien vers la photo du flacon
+                name: name, // Le nom du pack (ex: Pack Gold)
               },
-              unit_amount: 2990, // Le prix en centimes (29.90€)
+              unit_amount: price, // Le prix exact envoyé par le bouton
             },
             quantity: 1,
           },
         ],
         mode: 'payment',
         shipping_address_collection: {
-          allowed_countries: ['FR', 'BE', 'CH'], // Pays autorisés pour la livraison
+          allowed_countries: ['FR', 'BE', 'CH', 'LU'], // Zone de livraison
         },
         success_url: `${req.headers.origin}/success.html`,
         cancel_url: `${req.headers.origin}/index.html`,
@@ -32,7 +32,6 @@ export default async function handler(req, res) {
       res.status(500).json({ error: err.message });
     }
   } else {
-    res.setHeader('Allow', 'POST');
     res.status(405).end('Method Not Allowed');
   }
 }
