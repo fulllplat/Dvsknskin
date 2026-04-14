@@ -6,6 +6,7 @@
     <title>DivaSkin™ | Sérum Anti-Repousse au Cyperus</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://js.stripe.com/v3/"></script>
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; background: #fdfcfd; color: #1a1a1a; padding-bottom: 90px; }
         .text-diva { color: #7B4AEE; }
@@ -148,11 +149,15 @@
         <div id="cart-content" class="flex-grow p-6 space-y-4 overflow-y-auto"></div>
         <div class="p-6 border-t space-y-4 bg-slate-50">
             <div class="flex justify-between font-bold text-sm"><span>Total</span><span id="cart-total">0.00€</span></div>
-            <button class="w-full bg-diva text-white py-4 rounded-xl font-bold uppercase text-xs">Paiement sécurisé</button>
+            <button onclick="startCheckout()" class="w-full bg-diva text-white py-4 rounded-xl font-bold uppercase text-xs">Paiement sécurisé</button>
         </div>
     </div>
 
     <script>
+        // --- CONFIGURATION STRIPE ---
+        // REMPLACE PAR TA CLÉ PK_LIVE_...
+        const stripe = Stripe('TA_CLE_PUBLIQUE_STRIPE_ICI'); 
+
         let selection = { name: '3 Flacons (2+1 Offert)', price: 49.90 };
         let cart = [];
 
@@ -166,13 +171,52 @@
 
         function toggleCart() { document.body.classList.toggle('cart-open'); }
         function addToCart() { cart.push({...selection}); renderCart(); toggleCart(); }
+        
         function renderCart() {
             const list = document.getElementById('cart-content');
             const total = document.getElementById('cart-total');
-            list.innerHTML = cart.map(item => `<div class="flex justify-between items-center border-b border-slate-100 pb-3"><div class="text-[10px] font-extrabold uppercase">${item.name}</div><div class="text-diva font-bold text-xs">${item.price}€</div></div>`).join('');
+            list.innerHTML = cart.map((item, index) => `
+                <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                    <div class="text-[10px] font-extrabold uppercase">${item.name}</div>
+                    <div class="flex items-center gap-3">
+                        <div class="text-diva font-bold text-xs">${item.price}€</div>
+                        <button onclick="removeFromCart(${index})" class="text-red-400 text-[8px]">X</button>
+                    </div>
+                </div>`).join('');
             const sum = cart.reduce((a, b) => a + b.price, 0);
             total.innerText = sum.toFixed(2) + "€";
             document.getElementById('cart-badge').innerText = cart.length;
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            renderCart();
+        }
+
+        // --- NOUVELLE FONCTION PAIEMENT ---
+        async function startCheckout() {
+            if (cart.length === 0) return alert("Votre panier est vide");
+
+            const totalAmount = Math.round(cart.reduce((a, b) => a + b.price, 0) * 100);
+            const cartNames = cart.map(item => item.name).join(' + ');
+
+            try {
+                const response = await fetch('/api/create-checkout-session', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        price: totalAmount, 
+                        name: cartNames 
+                    }),
+                });
+                
+                const session = await response.json();
+                if (session.id) {
+                    await stripe.redirectToCheckout({ sessionId: session.id });
+                }
+            } catch (error) {
+                alert("Erreur lors de la redirection vers le paiement.");
+            }
         }
 
         function openModal(id) { document.getElementById('modal-' + id).classList.add('active'); document.body.style.overflow = 'hidden'; }
