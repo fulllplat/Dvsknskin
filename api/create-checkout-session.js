@@ -7,6 +7,8 @@ module.exports = async (req, res) => {
     const { price, name } = req.body;
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
+      billing_address_collection: 'required', // Obligatoire pour GoShippro
+      shipping_address_collection: { allowed_countries: ['FR', 'BE', 'CH'] }, // Récupère l'adresse
       line_items: [{
         price_data: {
           currency: 'eur',
@@ -16,7 +18,7 @@ module.exports = async (req, res) => {
         quantity: 1,
       }],
       mode: 'payment',
-      success_url: `${req.headers.origin}/index.html?success=true`,
+      success_url: `${req.headers.origin}/success.html`, // Correction ici
       cancel_url: `${req.headers.origin}/index.html`,
     });
     res.status(200).json({ id: session.id });
