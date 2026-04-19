@@ -59,8 +59,8 @@
                         <div class="flex justify-between items-center font-bold text-xs uppercase"><span>1 Flacon</span><span>29.90€</span></div>
                     </div>
                     <div onclick="selectOffer(2, 1.00, '3 Flacons (2+1 Offert)')" id="off-2" class="offer-card active p-4 rounded-xl cursor-pointer relative">
-                        <span class="absolute -top-2.5 right-4 bg-diva text-white text-[8px] px-2 py-0.5 rounded-full font-bold uppercase">Plus populaire</span>
-                        <div class="flex justify-between items-center font-bold"><span class="text-diva text-xs uppercase">3 Flacons (2+1 Offert)</span><span class="text-diva text-base">49.90€</span></div>
+                        <span class="absolute -top-2.5 right-4 bg-diva text-white text-[8px] px-2 py-0.5 rounded-full font-bold uppercase">OFFRE TEST 1€</span>
+                        <div class="flex justify-between items-center font-bold"><span class="text-diva text-xs uppercase">3 Flacons (2+1 Offert)</span><span class="text-diva text-base">1.00€</span></div>
                     </div>
                     <div onclick="selectOffer(3, 74.90, '5 Flacons (3+2 Offerts)')" id="off-3" class="offer-card p-4 rounded-xl cursor-pointer">
                         <div class="flex justify-between items-center font-bold text-xs uppercase"><span>5 Flacons (3+2 Offerts)</span><span>74.90€</span></div>
@@ -77,15 +77,7 @@
             <div class="space-y-6">
                 <div class="border-b border-slate-50 pb-4">
                     <p class="font-bold text-sm mb-2">Quand verrai-je les premiers résultats ?</p>
-                    <p class="text-xs text-slate-500">Les effets sont visibles dès les premières semaines. La repousse devient plus fine et moins dense au fil des applications.</p>
-                </div>
-                <div class="border-b border-slate-50 pb-4">
-                    <p class="font-bold text-sm mb-2">Est-ce utilisable sur les zones sensibles ?</p>
-                    <p class="text-xs text-slate-500">Oui, notre sérum au Cyperus est 100% naturel et parfaitement adapté au maillot, aisselles et visage.</p>
-                </div>
-                <div class="border-b border-slate-50 pb-4">
-                    <p class="font-bold text-sm mb-2">Comment l'utiliser pour un maximum d'efficacité ?</p>
-                    <p class="text-xs text-slate-500">Appliquez immédiatement après l'épilation (quand le pore est ouvert) et massez 2-3 minutes.</p>
+                    <p class="text-xs text-slate-500">Les effets sont visibles dès les premières semaines.</p>
                 </div>
             </div>
         </section>
@@ -110,8 +102,8 @@
 
     <div class="sticky-btn lg:hidden">
         <div class="flex-grow">
-            <p id="sticky-price" class="text-lg font-black text-diva leading-none">49.90€</p>
-            <p id="sticky-name" class="text-[7px] font-bold text-slate-400 uppercase tracking-widest italic">3 Flacons (Offre)</p>
+            <p id="sticky-price" class="text-lg font-black text-diva leading-none">1.00€</p>
+            <p id="sticky-name" class="text-[7px] font-bold text-slate-400 uppercase tracking-widest italic">3 Flacons (Offre Test)</p>
         </div>
         <button onclick="addToCart()" class="bg-slate-900 text-white px-8 py-4 rounded-xl font-bold text-sm">COMMANDER</button>
     </div>
@@ -119,29 +111,7 @@
     <div id="modal-mentions" class="modal">
         <button onclick="closeModal()" class="mb-8 font-bold text-xs uppercase text-slate-300">← Retour</button>
         <h2 class="text-2xl font-black mb-6">Mentions Légales</h2>
-        <div class="text-sm text-slate-600 space-y-4">
-            <p><strong>Editeur :</strong> DivaSkin</p>
-            <p><strong>Contact :</strong> contact.divaskin@gmail.com</p>
-            <p><strong>Immatriculation :</strong> Entreprise en cours d'immatriculation.</p>
-            <p><strong>Hébergeur :</strong> Vercel Inc., 340 S Lemon Ave #4133, Walnut, CA 91789, USA.</p>
-        </div>
-    </div>
-
-    <div id="modal-cgv" class="modal">
-        <button onclick="closeModal()" class="mb-8 font-bold text-xs uppercase text-slate-300">← Retour</button>
-        <h2 class="text-2xl font-black mb-6">CGV & Retours</h2>
-        <div class="text-sm text-slate-600 space-y-4">
-            <p><strong>Rétractation :</strong> 14 jours pour changer d'avis.</p>
-            <p><strong>Remboursement :</strong> Intégral après réception du retour.</p>
-        </div>
-    </div>
-
-    <div id="modal-confid" class="modal">
-        <button onclick="closeModal()" class="mb-8 font-bold text-xs uppercase text-slate-300">← Retour</button>
-        <h2 class="text-2xl font-black mb-6">Confidentialité</h2>
-        <div class="text-sm text-slate-600 space-y-4">
-            <p>Données utilisées uniquement pour la livraison.</p>
-        </div>
+        <p class="text-sm">Contact : contact.divaskin@gmail.com</p>
     </div>
 
     <div id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-[320px] bg-white z-[60] shadow-2xl flex flex-col">
@@ -154,11 +124,10 @@
     </div>
 
     <script>
-        // --- CONFIGURATION STRIPE ---
-        // REMPLACE PAR TA CLÉ PK_LIVE_...
         const stripe = Stripe('pk_live_51TLuMkGtOXg2ogwK9eNof8uMKm9ejmucE4I2MlyTWWdhgUOobr4BiG7lzyVnaW4xAzFd7AD7FouoQ5jv9hJmHdUT00SPIXR4Ua'); 
 
-        let selection = { name: '3 Flacons (2+1 Offert)', price: 49.90 };
+        // PRIX DE TEST PAR DÉFAUT : 1.00
+        let selection = { name: '3 Flacons (2+1 Offert)', price: 1.00 };
         let cart = [];
 
         function selectOffer(id, price, name) {
@@ -188,15 +157,10 @@
             document.getElementById('cart-badge').innerText = cart.length;
         }
 
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            renderCart();
-        }
+        function removeFromCart(index) { cart.splice(index, 1); renderCart(); }
 
-        // --- NOUVELLE FONCTION PAIEMENT ---
         async function startCheckout() {
             if (cart.length === 0) return alert("Votre panier est vide");
-
             const totalAmount = Math.round(cart.reduce((a, b) => a + b.price, 0) * 100);
             const cartNames = cart.map(item => item.name).join(' + ');
 
@@ -206,39 +170,25 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ 
                         price: totalAmount, 
-                        name: cartNames 
+                        name: cartNames,
+                        // REDIRECTION APRÈS SUCCÈS
+                        success_url: window.location.origin + '/success.html',
+                        cancel_url: window.location.origin + '/'
                     }),
                 });
-                
                 const session = await response.json();
-                if (session.id) {
-                    await stripe.redirectToCheckout({ sessionId: session.id });
-                }
+                if (session.id) { await stripe.redirectToCheckout({ sessionId: session.id }); }
             } catch (error) {
-                alert("Erreur lors de la redirection vers le paiement.");
+                alert("Erreur de paiement. Vérifiez votre connexion.");
             }
         }
 
-        function openModal(id) { document.getElementById('modal-' + id).classList.add('active'); document.body.style.overflow = 'hidden'; }
-        function closeModal() { document.querySelectorAll('.modal').forEach(m => m.classList.remove('active')); document.body.style.overflow = 'auto'; }
+        function openModal(id) { document.getElementById('modal-' + id).classList.add('active'); }
+        function closeModal() { document.querySelectorAll('.modal').forEach(m => m.classList.remove('active')); }
 
-        const reviews = [
-            { name: "Léa.M", stars: 5, text: "Grave contente, l'huile de cyperus fait vraiment la diff sur la repousse." },
-            { name: "Sarah_92", stars: 5, text: "Colis reçu en 10 jours. L'huile de cyperus calme bien la peau." },
-            { name: "Manon B.", stars: 4, text: "Pas mal du tout. Faut être assidue par contre pour voir les effets." },
-            { name: "Clara_G", stars: 5, text: "Ma peau est bcp plus lisse, je regrette pas mon achat." },
-            { name: "Mélissa", stars: 5, text: "Texture agréable, l'odeur est légère. Pack de 3 super avantageux." },
-            { name: "Julie.K", stars: 5 }, { name: "Inès R.", stars: 5 }, { name: "Camille", stars: 5 },
-            { name: "Emma_S", stars: 4 }, { name: "Chloé F.", stars: 5 }, { name: "Marine_T", stars: 5 },
-            { name: "Océane", stars: 5 }, { name: "Lucie_75", stars: 5 }, { name: "Mathilde", stars: 5 },
-            { name: "Zoé G.", stars: 4 }, { name: "Jade L.", stars: 5 }, { name: "Mélanie", stars: 5 },
-            { name: "Eva_B", stars: 5 }, { name: "Margaux", stars: 5 }, { name: "Noémie", stars: 5 },
-            { name: "Fanny", stars: 4 }, { name: "Elisa", stars: 5 }, { name: "Justine", stars: 5 },
-            { name: "Clémence", stars: 5 }, { name: "Amandine", stars: 5 }, { name: "Sonia_K", stars: 5 },
-            { name: "Lola", stars: 5 }, { name: "Pauline", stars: 4 }, { name: "Célia", stars: 5 }, { name: "Sandra", stars: 5 }
-        ];
-        const container = document.getElementById('reviews-container');
-        container.innerHTML = reviews.map(r => `<div class="bg-white p-4 rounded-2xl border border-slate-50 shadow-sm min-h-[80px]"><div class="text-yellow-400 text-[8px] mb-1">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div>${r.text ? `<p class="text-[11px] font-medium text-slate-600 leading-tight mb-2 italic">"${r.text}"</p>` : ''}<p class="text-[9px] font-bold text-slate-300 uppercase">${r.name}</p></div>`).join('');
+        // Avis clients simulés
+        const reviews = [{ name: "Léa.M", stars: 5, text: "Grave contente, l'huile de cyperus fait vraiment la diff." }];
+        document.getElementById('reviews-container').innerHTML = reviews.map(r => `<div class="bg-white p-4 rounded-2xl border border-slate-50 shadow-sm"><p class="text-[11px] font-medium text-slate-600 italic">"${r.text}"</p></div>`).join('');
     </script>
 </body>
 </html>
