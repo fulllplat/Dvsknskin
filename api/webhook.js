@@ -1,37 +1,39 @@
 const Stripe = require('stripe');
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-// Désactive le parseur auto de Vercel (indispensable pour la sécurité Stripe)
-exports.config = {
-  api: { bodyParser: false },
+// 1. OBLIGATOIRE : On dit à Vercel de ne PAS transformer le message
+export const config = {
+  api: {
+    bodyParser: false,
+  },
 };
 
-module.exports = async (req, res) => {
+// 2. Fonction pour lire le message brut
+async function getRawBody(req) {
+  return new Promise((resolve, reject) => {
+    let body = '';
+    req.on('data', chunk => { body += chunk.toString(); });
+    req.on('end', () => { resolve(body); });
+    req.on('error', reject);
+  });
+}
+
+export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).send('Method Not Allowed');
 
-  // 1. Récupération de la requête brute
-  const chunks = [];
-  for await (const chunk of req) {
-    chunks.push(chunk);
-  }
-  const rawBody = Buffer.concat(chunks);
   const sig = req.headers['stripe-signature'];
-
+  const rawBody = await getRawBody(req);
   let event;
 
-  // 2. Vérification de la signature (La sécurité est ici)
   try {
-    event = stripe.webhooks.constructEvent(
-      rawBody,
-      sig,
-      process.env.STRIPE_WEBHOOK_SECRET
-    );
+    // 3. On vérifie la signature de sécurité avec le message brut
+    event = stripe.webhooks.constructEvent(rawBody, sig, process.env.STRIPE_WEBHOOK_SECRET);
   } catch (err) {
     console.error("Erreur de signature :", err.message);
-    return res.status(400).send(`Erreur Webhook : ${err.message}`);
+    return res.status(400).send(`Webhook Error: ${err.message}`);
   }
 
-  // 3. Envoi à GoShippro uniquement si la signature est valide
+  // 4. Si le paiement est réussi, on envoie à GoShippro
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object;
     
@@ -55,9 +57,11 @@ module.exports = async (req, res) => {
           }
         })
       });
+      console.log("Succès : Commande envoyée à GoShippro !");
     } catch (e) {
       console.error("Erreur GoShippro:", e);
     }
   }
+  
   res.status(200).json({ received: true });
-};
+}
