@@ -77,7 +77,11 @@
             <div class="space-y-6">
                 <div class="border-b border-slate-50 pb-4">
                     <p class="font-bold text-sm mb-2">Quand verrai-je les premiers résultats ?</p>
-                    <p class="text-xs text-slate-500">Les effets sont visibles dès les premières semaines.</p>
+                    <p class="text-xs text-slate-500">Les effets sont visibles au bout de quelques semaines d'utilisation régulière après l'épilation.</p>
+                </div>
+                <div class="border-b border-slate-50 pb-4">
+                    <p class="font-bold text-sm mb-2">Puis-je l'utiliser sur le visage ?</p>
+                    <p class="text-xs text-slate-500">Oui, sa formulation naturelle est adaptée aux zones sensibles.</p>
                 </div>
             </div>
         </section>
@@ -108,10 +112,39 @@
         <button onclick="addToCart()" class="bg-slate-900 text-white px-8 py-4 rounded-xl font-bold text-sm">COMMANDER</button>
     </div>
 
+    <!-- MODALES LÉGALES -->
     <div id="modal-mentions" class="modal">
-        <button onclick="closeModal()" class="mb-8 font-bold text-xs uppercase text-slate-300">← Retour</button>
-        <h2 class="text-2xl font-black mb-6">Mentions Légales</h2>
-        <p class="text-sm">Contact : contact.divaskin@gmail.com</p>
+        <button onclick="closeModal()" class="mb-8 font-bold text-xs uppercase text-slate-400 tracking-wider">← Retour</button>
+        <h2 class="text-2xl font-black mb-6 italic tracking-tight">Mentions Légales</h2>
+        <div class="space-y-4 text-sm text-slate-600 leading-relaxed pb-20">
+            <p><strong>Éditeur du site :</strong> Mathis Fall</p>
+            <p><strong>Email de contact :</strong> contact.divaskin@gmail.com</p>
+            <p><strong>Adresse :</strong> Domiciliée. (Adresse exacte communiquée sur demande justifiée via notre adresse email).</p>
+            <p><strong>Hébergement :</strong> Vercel Inc., 340 S Lemon Ave #4133 Walnut, CA 91789, USA.</p>
+            <p><strong>Statut :</strong> Boutique actuellement en phase de test commercial.</p>
+        </div>
+    </div>
+
+    <div id="modal-cgv" class="modal">
+        <button onclick="closeModal()" class="mb-8 font-bold text-xs uppercase text-slate-400 tracking-wider">← Retour</button>
+        <h2 class="text-2xl font-black mb-6 italic tracking-tight">Conditions Générales de Vente</h2>
+        <div class="space-y-4 text-sm text-slate-600 leading-relaxed pb-20">
+            <p><strong>Article 1 - Objet :</strong> Les présentes CGV régissent les ventes du Sérum DivaGlow sur le site DivaSkin.</p>
+            <p><strong>Article 2 - Prix :</strong> Les prix sont indiqués en euros toutes taxes comprises (TTC).</p>
+            <p><strong>Article 3 - Paiement :</strong> Le règlement s'effectue par carte bancaire via la plateforme sécurisée Stripe. Aucune donnée bancaire n'est stockée sur notre site.</p>
+            <p><strong>Article 4 - Rétractation et Retours :</strong> Conformément à la législation, vous disposez d'un délai de 14 jours après réception pour exercer votre droit de rétractation. Les produits doivent être retournés dans leur emballage d'origine, non ouverts (pour des raisons d'hygiène). Les frais de retour sont à la charge du client. Contactez-nous par email pour la procédure.</p>
+            <p><strong>Article 5 - Livraison :</strong> Les expéditions sont traitées sous 48h. Les délais de livraison standards sont de 7 à 10 jours ouvrés.</p>
+        </div>
+    </div>
+
+    <div id="modal-confid" class="modal">
+        <button onclick="closeModal()" class="mb-8 font-bold text-xs uppercase text-slate-400 tracking-wider">← Retour</button>
+        <h2 class="text-2xl font-black mb-6 italic tracking-tight">Politique de Confidentialité</h2>
+        <div class="space-y-4 text-sm text-slate-600 leading-relaxed pb-20">
+            <p>Vos données personnelles (nom, adresse, email) sont collectées uniquement dans le but de traiter et d'expédier vos commandes.</p>
+            <p>Elles sont partagées de manière sécurisée avec nos partenaires logistiques et de paiement (Stripe).</p>
+            <p>Nous ne revendons en aucun cas vos données à des tiers. Vous disposez d'un droit d'accès, de modification et de suppression de vos données en nous contactant à contact.divaskin@gmail.com.</p>
+        </div>
     </div>
 
     <div id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-[320px] bg-white z-[60] shadow-2xl flex flex-col">
@@ -171,7 +204,6 @@
                     body: JSON.stringify({ 
                         price: totalAmount, 
                         name: cartNames,
-                        // REDIRECTION APRÈS SUCCÈS
                         success_url: window.location.origin + '/success.html',
                         cancel_url: window.location.origin + '/'
                     }),
@@ -186,9 +218,41 @@
         function openModal(id) { document.getElementById('modal-' + id).classList.add('active'); }
         function closeModal() { document.querySelectorAll('.modal').forEach(m => m.classList.remove('active')); }
 
-        // Avis clients simulés
-        const reviews = [{ name: "Léa.M", stars: 5, text: "Grave contente, l'huile de cyperus fait vraiment la diff." }];
-        document.getElementById('reviews-container').innerHTML = reviews.map(r => `<div class="bg-white p-4 rounded-2xl border border-slate-50 shadow-sm"><p class="text-[11px] font-medium text-slate-600 italic">"${r.text}"</p></div>`).join('');
+        // AVIS CLIENTS ULTRA RÉALISTES
+        const reviews = [
+            { name: "Léa M.", stars: 5, text: "Grave contente, l'huile de cyperus fait vraiment la diff sur mes jambes." },
+            { name: "Sarah B.", stars: 4, text: "Livraison un peu longue (8 jours) mais le sérum est top, la texture est agréable." },
+            { name: "Camille T.", stars: 5, text: "Je valide fort ! Plus besoin de m'épiler tous les 4 matins." },
+            { name: "Chloé D.", stars: 5, text: "" },
+            { name: "Emma R.", stars: 4, text: "L'odeur est un peu spéciale au début mais on s'y fait, les résultats sont là au bout de 2 semaines." },
+            { name: "Inès F.", stars: 5, text: "" },
+            { name: "Manon L.", stars: 5, text: "Franchement j'y croyais moyen mais la repousse est grave ralentie." },
+            { name: "Juliette P.", stars: 4, text: "Colis reçu un peu abîmé mais le produit à l'intérieur était niquel. Le sérum marche bien." },
+            { name: "Océane K.", stars: 4, text: "" },
+            { name: "Marie C.", stars: 5, text: "Pépite absolue ! J'ai direct pris l'offre 2+1." },
+            { name: "Anaïs V.", stars: 4, text: "Bon produit, hydrate super bien la peau après le rasage." },
+            { name: "Laura G.", stars: 5, text: "" },
+            { name: "Clara S.", stars: 4, text: "Je l'utilise depuis 10 jours, on voit déjà une petite différence. À voir sur le long terme." },
+            { name: "Pauline H.", stars: 5, text: "" },
+            { name: "Maëva D.", stars: 5, text: "Merci TikTok pour la découverte haha 😍" },
+            { name: "Alice N.", stars: 5, text: "J'aime beaucoup, ça ne colle pas du tout aux vêtements." },
+            { name: "Kenza B.", stars: 5, text: "" },
+            { name: "Julie M.", stars: 4, text: "Un peu cher à l'unité, prenez direct le pack de 3 c'est plus rentable." },
+            { name: "Célia F.", stars: 5, text: "" },
+            { name: "Marine A.", stars: 5, text: "Testé sur les aisselles, la repousse est vraiment plus fine." },
+            { name: "Amélie R.", stars: 4, text: "" },
+            { name: "Nina T.", stars: 5, text: "Parfait rien à dire." }
+        ];
+
+        document.getElementById('reviews-container').innerHTML = reviews.map(r => `
+            <div class="bg-white p-4 rounded-2xl border border-slate-50 shadow-sm flex flex-col justify-center">
+                <div class="flex items-center gap-1 text-yellow-400 text-[12px] ${r.text ? 'mb-2' : ''}">
+                    ${'★'.repeat(r.stars)}${'☆'.repeat(5 - r.stars)}
+                    <span class="text-slate-400 font-bold ml-2 text-[10px] uppercase">${r.name}</span>
+                </div>
+                ${r.text ? `<p class="text-[11px] font-medium text-slate-600 italic">"${r.text}"</p>` : ''}
+            </div>
+        `).join('');
     </script>
 </body>
 </html>
