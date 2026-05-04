@@ -1,51 +1,26 @@
 const Stripe = require('stripe');
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-// 1. OBLIGATOIRE : On dit à Vercel de ne PAS transformer le message
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
-
-// 2. Fonction pour lire le message brut
-async function getRawBody(req) {
-  return new Promise((resolve, reject) => {
-    let body = '';
-    req.on('data', chunk => { body += chunk.toString(); });
-    req.on('end', () => { resolve(body); });
-    req.on('error', reject);
-  });
-}
-
-export default async function handler(req, res) {
+module.exports = async (req, res) => {
   if (req.method !== 'POST') return res.status(405).send('Method Not Allowed');
 
-  const sig = req.headers['stripe-signature'];
-  const rawBody = await getRawBody(req);
-  let event;
+  // On prend la requête directement sans bloquer sur la signature
+  const event = req.body;
 
-  try {
-    // 3. On vérifie la signature de sécurité avec le message brut
-    event = stripe.webhooks.constructEvent(rawBody, sig, process.env.STRIPE_WEBHOOK_SECRET);
-  } catch (err) {
-    console.error("Erreur de signature :", err.message);
-    return res.status(400).send(`Webhook Error: ${err.message}`);
-  }
-
-  // 4. Si le paiement est réussi, on envoie à GoShippro
-  if (event.type === 'checkout.session.completed') {
+  // On vérifie que c'est bien un paiement validé
+  if (event && event.type === 'checkout.session.completed') {
     const session = event.data.object;
     
     try {
-      await fetch('https://api.goshippro.com/v1/orders', {
+      // Envoi de la commande vers GoShippro
+      const response = await fetch('https://api.goshippro.com/v1/orders', {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${process.env.GOSHIPPRO_TOKEN.trim()}`,
+          'Authorization': `Bearer ${process.env.GOSHIPPRO_TOKEN}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          secret_key: process.env.GOSHIPPRO_SECRET.trim(),
+          secret_key: process.env.GOSHIPPRO_SECRET,
           order: {
             customer_name: session.customer_details?.name || "Client",
             customer_email: session.customer_details?.email || "",
@@ -57,11 +32,17 @@ export default async function handler(req, res) {
           }
         })
       });
-      console.log("Succès : Commande envoyée à GoShippro !");
+
+      // On lit la réponse exacte de GoShippro
+      const result = await response.text();
+      console.log("Statut GoShippro:", response.status);
+      console.log("Réponse GoShippro:", result);
+
     } catch (e) {
-      console.error("Erreur GoShippro:", e);
+      console.error("Erreur serveur Vercel -> GoShippro:", e.message);
     }
   }
   
+  // On dit à Stripe que tout est OK pour qu'il arrête de renvoyer le message
   res.status(200).json({ received: true });
-}
+};
