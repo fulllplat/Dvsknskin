@@ -1,194 +1,43 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>DivaSkin™ | Sérum Anti-Repousse au Cyperus</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://js.stripe.com/v3/"></script>
-    <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #fdfcfd; color: #1a1a1a; padding-bottom: 90px; }
-        .text-diva { color: #7B4AEE; }
-        .bg-diva { background-color: #7B4AEE; }
-        .offer-card { transition: all 0.3s ease; border: 2px solid #ececf0; background: white; }
-        .offer-card.active { border-color: #7B4AEE; transform: scale(1.02); box-shadow: 0 10px 20px rgba(123, 74, 238, 0.1); }
-        #cart-drawer { transform: translateX(100%); transition: transform 0.4s ease; }
-        .cart-open #cart-drawer { transform: translateX(0); }
-        .overlay { display: none; background: rgba(0,0,0,0.3); backdrop-filter: blur(4px); z-index: 50; }
-        .cart-open .overlay { display: block; }
-        .sticky-btn { position: fixed; bottom: 0; left: 0; right: 0; background: white; padding: 16px; box-shadow: 0 -10px 25px rgba(0,0,0,0.08); z-index: 45; display: flex; gap: 12px; align-items: center; }
-        .modal { display: none; position: fixed; inset: 0; background: white; z-index: 100; overflow-y: auto; padding: 20px; }
-        .modal.active { display: block; }
-    </style>
-</head>
-<body class="antialiased">
+const Stripe = require('stripe');
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-    <div class="overlay fixed inset-0" onclick="toggleCart()"></div>
+module.exports = async (req, res) => {
+  if (req.method !== 'POST') return res.status(405).send('Method Not Allowed');
 
-    <div class="bg-diva text-white text-[10px] font-bold py-2.5 text-center uppercase tracking-[0.15em]">LIVRAISON OFFERTE AUJOURD'HUI</div>
+  const event = req.body;
 
-    <nav class="sticky top-0 bg-white/80 backdrop-blur-md z-40 border-b border-gray-100">
-        <div class="max-w-7xl mx-auto px-4 h-14 flex justify-between items-center">
-            <div class="text-xl font-black italic tracking-tighter text-diva">DIVASKIN</div>
-            <button onclick="toggleCart()" class="relative p-2">
-                <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
-                <span id="cart-badge" class="absolute top-1 right-1 bg-diva text-white text-[8px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
-            </button>
-        </div>
-    </nav>
+  if (event && event.type === 'checkout.session.completed') {
+    const session = event.data.object;
+    
+    try {
+      const response = await fetch('https://api.goshippro.com/v1/orders', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${process.env.GOSHIPPRO_TOKEN}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          secret_key: process.env.GOSHIPPRO_SECRET,
+          order: {
+            customer_name: session.customer_details?.name || "Client",
+            customer_email: session.customer_details?.email || "",
+            address: session.shipping_details?.address?.line1 || "Adresse non fournie",
+            city: session.shipping_details?.address?.city || "",
+            zip: session.shipping_details?.address?.postal_code || "",
+            country: session.shipping_details?.address?.country || "FR",
+            product: "Sérum DivaGlow" 
+          }
+        })
+      });
 
-    <main class="max-w-5xl mx-auto px-4 py-4">
-        <div class="grid lg:grid-cols-2 gap-8">
-            <div class="space-y-4">
-                <img src="produit.png.WEBP" class="w-full aspect-square object-cover rounded-[24px]" alt="DivaSkin">
-                <img src="points.png.PNG" class="w-full rounded-2xl border border-slate-100" alt="Efficacité">
-            </div>
+      const result = await response.text();
+      console.log("Statut GoShippro:", response.status);
+      console.log("Réponse GoShippro:", result);
 
-            <div class="space-y-6">
-                <div>
-                    <div class="flex items-center gap-1 text-yellow-400 text-[10px] mb-1">★★★★★ <span class="text-slate-400 ml-1">4.8 (1,248 avis)</span></div>
-                    <h1 class="text-2xl font-extrabold tracking-tight italic">Sérum Anti-Repousse</h1>
-                    <p class="mt-3 text-slate-600 text-sm leading-relaxed">
-                        Formulé à base d'huile de <b>Cyperus Rotundus</b> pure, ce sérum ralentit naturellement la repousse après chaque épilation. Il apaise la zone traitée et laisse votre peau parfaitement lisse.
-                    </p>
-                </div>
-
-                <div class="space-y-2">
-                    <div onclick="selectOffer(1, 29.90, '1 Flacon')" id="off-1" class="offer-card p-4 rounded-xl cursor-pointer">
-                        <div class="flex justify-between items-center font-bold text-xs uppercase"><span>1 Flacon</span><span>29.90€</span></div>
-                    </div>
-                    <div onclick="selectOffer(2, 1.00, '3 Flacons (2+1 Offert)')" id="off-2" class="offer-card active p-4 rounded-xl cursor-pointer relative">
-                        <span class="absolute -top-2.5 right-4 bg-diva text-white text-[8px] px-2 py-0.5 rounded-full font-bold uppercase">OFFRE TEST 1€</span>
-                        <div class="flex justify-between items-center font-bold"><span class="text-diva text-xs uppercase">3 Flacons (2+1 Offert)</span><span class="text-diva text-base">1.00€</span></div>
-                    </div>
-                    <div onclick="selectOffer(3, 74.90, '5 Flacons (3+2 Offerts)')" id="off-3" class="offer-card p-4 rounded-xl cursor-pointer">
-                        <div class="flex justify-between items-center font-bold text-xs uppercase"><span>5 Flacons (3+2 Offerts)</span><span>74.90€</span></div>
-                    </div>
-                </div>
-
-                <button onclick="addToCart()" class="w-full bg-slate-900 text-white py-5 rounded-xl font-bold text-lg shadow-xl uppercase tracking-tight">Ajouter au panier</button>
-                <p class="text-center text-[11px] font-bold text-slate-400 uppercase tracking-tighter">🚚 Livraison Standard : 7-10 jours</p>
-            </div>
-        </div>
-
-        <section class="mt-16 bg-white rounded-[32px] p-8 border border-slate-100">
-            <h2 class="text-xl font-extrabold mb-8 text-center uppercase italic tracking-tighter">Questions fréquentes</h2>
-            <div class="space-y-6">
-                <div class="border-b border-slate-50 pb-4">
-                    <p class="font-bold text-sm mb-2">Quand verrai-je les premiers résultats ?</p>
-                    <p class="text-xs text-slate-500">Les effets sont visibles dès les premières semaines.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="mt-16">
-            <h2 class="text-xl font-extrabold mb-8 text-center uppercase tracking-tighter italic">Vos retours</h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-3" id="reviews-container"></div>
-        </section>
-    </main>
-
-    <footer class="py-12 px-6 border-t border-slate-100 bg-white mt-10">
-        <div class="max-w-5xl mx-auto text-center">
-            <div class="text-lg font-black italic mb-6 text-diva">DIVASKIN</div>
-            <div class="flex flex-wrap justify-center gap-6 text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-8">
-                <button onclick="openModal('mentions')">Mentions Légales</button>
-                <button onclick="openModal('cgv')">CGV</button>
-                <button onclick="openModal('confid')">Confidentialité</button>
-            </div>
-            <p class="text-[9px] text-slate-300 uppercase tracking-[0.4em]">© 2026 DivaSkin. Tous droits réservés.</p>
-        </div>
-    </footer>
-
-    <div class="sticky-btn lg:hidden">
-        <div class="flex-grow">
-            <p id="sticky-price" class="text-lg font-black text-diva leading-none">1.00€</p>
-            <p id="sticky-name" class="text-[7px] font-bold text-slate-400 uppercase tracking-widest italic">3 Flacons (Offre Test)</p>
-        </div>
-        <button onclick="addToCart()" class="bg-slate-900 text-white px-8 py-4 rounded-xl font-bold text-sm">COMMANDER</button>
-    </div>
-
-    <div id="modal-mentions" class="modal">
-        <button onclick="closeModal()" class="mb-8 font-bold text-xs uppercase text-slate-300">← Retour</button>
-        <h2 class="text-2xl font-black mb-6">Mentions Légales</h2>
-        <p class="text-sm">Contact : contact.divaskin@gmail.com</p>
-    </div>
-
-    <div id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-[320px] bg-white z-[60] shadow-2xl flex flex-col">
-        <div class="p-6 border-b flex justify-between items-center"><h2 class="font-bold text-xs uppercase">Panier</h2><button onclick="toggleCart()" class="text-[10px] font-bold text-slate-300">FERMER</button></div>
-        <div id="cart-content" class="flex-grow p-6 space-y-4 overflow-y-auto"></div>
-        <div class="p-6 border-t space-y-4 bg-slate-50">
-            <div class="flex justify-between font-bold text-sm"><span>Total</span><span id="cart-total">0.00€</span></div>
-            <button onclick="startCheckout()" class="w-full bg-diva text-white py-4 rounded-xl font-bold uppercase text-xs">Paiement sécurisé</button>
-        </div>
-    </div>
-
-    <script>
-        const stripe = Stripe('pk_live_51TLuMkGtOXg2ogwK9eNof8uMKm9ejmucE4I2MlyTWWdhgUOobr4BiG7lzyVnaW4xAzFd7AD7FouoQ5jv9hJmHdUT00SPIXR4Ua'); 
-
-        // PRIX DE TEST PAR DÉFAUT : 1.00
-        let selection = { name: '3 Flacons (2+1 Offert)', price: 1.00 };
-        let cart = [];
-
-        function selectOffer(id, price, name) {
-            selection = { name, price };
-            document.querySelectorAll('.offer-card').forEach(el => el.classList.remove('active'));
-            document.getElementById('off-' + id).classList.add('active');
-            document.getElementById('sticky-price').innerText = price.toFixed(2) + "€";
-            document.getElementById('sticky-name').innerText = name.split(' (')[0];
-        }
-
-        function toggleCart() { document.body.classList.toggle('cart-open'); }
-        function addToCart() { cart.push({...selection}); renderCart(); toggleCart(); }
-        
-        function renderCart() {
-            const list = document.getElementById('cart-content');
-            const total = document.getElementById('cart-total');
-            list.innerHTML = cart.map((item, index) => `
-                <div class="flex justify-between items-center border-b border-slate-100 pb-3">
-                    <div class="text-[10px] font-extrabold uppercase">${item.name}</div>
-                    <div class="flex items-center gap-3">
-                        <div class="text-diva font-bold text-xs">${item.price}€</div>
-                        <button onclick="removeFromCart(${index})" class="text-red-400 text-[8px]">X</button>
-                    </div>
-                </div>`).join('');
-            const sum = cart.reduce((a, b) => a + b.price, 0);
-            total.innerText = sum.toFixed(2) + "€";
-            document.getElementById('cart-badge').innerText = cart.length;
-        }
-
-        function removeFromCart(index) { cart.splice(index, 1); renderCart(); }
-
-        async function startCheckout() {
-            if (cart.length === 0) return alert("Votre panier est vide");
-            const totalAmount = Math.round(cart.reduce((a, b) => a + b.price, 0) * 100);
-            const cartNames = cart.map(item => item.name).join(' + ');
-
-            try {
-                const response = await fetch('/api/create-checkout-session', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ 
-                        price: totalAmount, 
-                        name: cartNames,
-                        // REDIRECTION APRÈS SUCCÈS
-                        success_url: window.location.origin + '/success.html',
-                        cancel_url: window.location.origin + '/'
-                    }),
-                });
-                const session = await response.json();
-                if (session.id) { await stripe.redirectToCheckout({ sessionId: session.id }); }
-            } catch (error) {
-                alert("Erreur de paiement. Vérifiez votre connexion.");
-            }
-        }
-
-        function openModal(id) { document.getElementById('modal-' + id).classList.add('active'); }
-        function closeModal() { document.querySelectorAll('.modal').forEach(m => m.classList.remove('active')); }
-
-        // Avis clients simulés
-        const reviews = [{ name: "Léa.M", stars: 5, text: "Grave contente, l'huile de cyperus fait vraiment la diff." }];
-        document.getElementById('reviews-container').innerHTML = reviews.map(r => `<div class="bg-white p-4 rounded-2xl border border-slate-50 shadow-sm"><p class="text-[11px] font-medium text-slate-600 italic">"${r.text}"</p></div>`).join('');
-    </script>
-</body>
-</html>
+    } catch (e) {
+      console.error("Erreur serveur Vercel -> GoShippro:", e.message);
+    }
+  }
+  
+  res.status(200).json({ received: true });
+};
