@@ -55,15 +55,29 @@
                 </div>
 
                 <div class="space-y-2">
-                    <div onclick="selectOffer(1, 29.90, '1 Flacon')" id="off-1" class="offer-card p-4 rounded-xl cursor-pointer">
-                        <div class="flex justify-between items-center font-bold text-xs uppercase"><span>1 Flacon</span><span>29.90€</span></div>
+                    <!-- OFFRE 1 -->
+                    <div onclick="selectOffer(1, 17.99, '1 Flacon')" id="off-1" class="offer-card p-4 rounded-xl cursor-pointer">
+                        <div class="flex justify-between items-center font-bold text-xs uppercase">
+                            <span>1 Flacon</span>
+                            <span><s class="text-slate-400 text-[10px] mr-1.5 font-medium">29.99€</s>17.99€</span>
+                        </div>
                     </div>
-                    <div onclick="selectOffer(2, 59.80, '3 Flacons (2+1 Offert)')" id="off-2" class="offer-card active p-4 rounded-xl cursor-pointer relative">
+                    
+                    <!-- OFFRE 2 -->
+                    <div onclick="selectOffer(2, 27.99, '2 Flacons')" id="off-2" class="offer-card p-4 rounded-xl cursor-pointer">
+                        <div class="flex justify-between items-center font-bold text-xs uppercase">
+                            <span>2 Flacons</span>
+                            <span><s class="text-slate-400 text-[10px] mr-1.5 font-medium">59.98€</s>27.99€</span>
+                        </div>
+                    </div>
+
+                    <!-- OFFRE 3 (ACTIVE PAR DÉFAUT) -->
+                    <div onclick="selectOffer(3, 34.99, '3 Flacons (2+1 Offert)')" id="off-3" class="offer-card active p-4 rounded-xl cursor-pointer relative">
                         <span class="absolute -top-2.5 right-4 bg-diva text-white text-[8px] px-2 py-0.5 rounded-full font-bold uppercase">MEILLEURE OFFRE</span>
-                        <div class="flex justify-between items-center font-bold"><span class="text-diva text-xs uppercase">3 Flacons (2+1 Offert)</span><span class="text-diva text-base">59.80€</span></div>
-                    </div>
-                    <div onclick="selectOffer(3, 74.90, '5 Flacons (3+2 Offerts)')" id="off-3" class="offer-card p-4 rounded-xl cursor-pointer">
-                        <div class="flex justify-between items-center font-bold text-xs uppercase"><span>5 Flacons (3+2 Offerts)</span><span>74.90€</span></div>
+                        <div class="flex justify-between items-center font-bold">
+                            <span class="text-diva text-xs uppercase">3 Flacons (2+1 Offert)</span>
+                            <span><s class="text-slate-400 text-[10px] mr-1.5 font-medium">89.97€</s><span class="text-diva text-base">34.99€</span></span>
+                        </div>
                     </div>
                 </div>
 
@@ -106,7 +120,7 @@
 
     <div class="sticky-btn lg:hidden">
         <div class="flex-grow">
-            <p id="sticky-price" class="text-lg font-black text-diva leading-none">59.80€</p>
+            <p id="sticky-price" class="text-lg font-black text-diva leading-none">34.99€</p>
             <p id="sticky-name" class="text-[7px] font-bold text-slate-400 uppercase tracking-widest italic">3 Flacons</p>
         </div>
         <button onclick="addToCart()" class="bg-slate-900 text-white px-8 py-4 rounded-xl font-bold text-sm">COMMANDER</button>
@@ -159,8 +173,8 @@
     <script>
         const stripe = Stripe('pk_live_51TLuMkGtOXg2ogwK9eNof8uMKm9ejmucE4I2MlyTWWdhgUOobr4BiG7lzyVnaW4xAzFd7AD7FouoQ5jv9hJmHdUT00SPIXR4Ua'); 
 
-        // PRIX PAR DÉFAUT : 59.80
-        let selection = { name: '3 Flacons (2+1 Offert)', price: 59.80 };
+        // PRIX PAR DÉFAUT ACTUALISÉ (Offre 3 - 34.99€)
+        let selection = { name: '3 Flacons (2+1 Offert)', price: 34.99 };
         let cart = [];
 
         function selectOffer(id, price, name) {
